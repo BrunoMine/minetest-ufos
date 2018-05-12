@@ -298,7 +298,7 @@ end
 modUFO.getFormSpecs = {
 	mainmenu = function(insecure)
 		local myFormSpec =
-		"size[8,4.80]"
+		"size[8,5.80]"
 		..modUFO.getFomTheme()
 		.."label[0,0;"..minetest.formspec_escape(modUFO.translate("UFO SYSTEM CONTROL")..":").."]"
 		.."button[0,0.50;4,1;btnControlHelp;"..minetest.formspec_escape(modUFO.translate("UFO MANUAL")).."]"
@@ -309,11 +309,13 @@ modUFO.getFormSpecs = {
 		.."button[4,2.15;4,1;btnShowForge;"..minetest.formspec_escape(modUFO.translate("ELETRIC FORGE")).."]"
 		.."button[0,3.00;4,1;btnShowNavegation;"..minetest.formspec_escape(modUFO.translate("NAVEGATION")).."]"
 		.."button[4,3.00;4,1;btnShowUpgrade;"..minetest.formspec_escape(modUFO.translate("UPGRADES")).."]"
+		.."button[0,3.85;4,1;btnShowTeleport;"..minetest.formspec_escape(modUFO.translate("TELEPORT")).."]"
+		.."button[4,3.85;4,1;btnShowAbduct;"..minetest.formspec_escape(modUFO.translate("ABDUCT")).."]"
 				
 		if insecure then
-			myFormSpec = myFormSpec.."button[1,4.05;6,1;btnLeave;"..minetest.formspec_escape(modUFO.translate("EMERGENCY EJECTION")).."]"
+			myFormSpec = myFormSpec.."button[1,5.05;6,1;btnLeave;"..minetest.formspec_escape(modUFO.translate("EMERGENCY EJECTION")).."]"
 		else
-			myFormSpec = myFormSpec.."button_exit[1,4.05;6,1;btnLeave;"..minetest.formspec_escape(modUFO.translate("LEAVE UFO")).."]"
+			myFormSpec = myFormSpec.."button_exit[1,5.05;6,1;btnLeave;"..minetest.formspec_escape(modUFO.translate("LEAVE UFO")).."]"
 		end
 		
 		return myFormSpec

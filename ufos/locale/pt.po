@@ -92,7 +92,7 @@ msgstr "--==NAVEGAÇÃO==--"
 
 #: api.lua:311
 msgid "UPGRADES"
-msgstr "--==ATUALIZAÇÃO==--"
+msgstr "--==APRIMORAR==--"
 
 #: api.lua:314 api.lua:352
 msgid "EMERGENCY EJECTION"
