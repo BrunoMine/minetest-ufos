@@ -120,7 +120,7 @@ modUFO.onForgeStep = function(self)
 								self.forge.cook_time_count = 0
 								if self.owner_name~="" then
 									local owner = minetest.get_player_by_name(self.owner_name)
-									if owner:is_player() then
+									if owner and owner:is_player() then
 										modUFO.send_message(
 											self,
 											self.owner_name, 
@@ -137,7 +137,7 @@ modUFO.onForgeStep = function(self)
 					self.forge.cook_time_count = 0
 					if self.owner_name~="" then
 						local owner = minetest.get_player_by_name(self.owner_name)
-						if owner:is_player() then
+						if owner and owner:is_player() then
 							modUFO.send_message(
 								self,
 								self.owner_name, 
@@ -168,7 +168,7 @@ modUFO.onForgeStep = function(self)
 				self.forge.enabled = false
 				if self.owner_name~="" then
 					local owner = minetest.get_player_by_name(self.owner_name)
-					if owner:is_player() then
+					if owner and owner:is_player() then
 						modUFO.send_message(
 							self,
 							self.owner_name, 
