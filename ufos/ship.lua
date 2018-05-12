@@ -81,9 +81,9 @@ function modUFO.ufo:on_activate (staticdata, dtime_s)
 		local data = staticdata:split(';')
 		self.owner_name = data[1] or ""
 		self.fuel = tonumber(data[2] or 0)
-		self.shipname = tostring(data[3] or "")
-		self.waypoint_actived = data[4] or "false"
-		self.inertia_cancel = data[5] or "true"
+		self.shipname = data[3] or self.shipname
+		self.waypoint_actived = data[4] or self.waypoint_actived
+		self.inertia_cancel = data[5] or self.inertia_cancel
 	end
 	if self.waypoint_handler and self.owner_name~="" then
 		local owner = minetest.get_player_by_name(self.owner_name)
@@ -111,7 +111,7 @@ function modUFO.ufo:on_punch (puncher, time_from_last_punch, tool_capabilities, 
 			else
 				modUFO.send_message(self, puncher:get_player_name(), 
 					modUFO.translate(
-						"It is not possible to shrink this vehicle before the captain '%s' comes out of it!"
+						"It is not possible to shrink this vehicle before the pilot '%s' comes out of it!"
 					):format(self.owner_name)
 				)
 				modUFO.play_fail(self.object)
@@ -228,7 +228,7 @@ function modUFO.ufo:on_step (dtime)
 		
 		if self.owner_name~="" then
 			local owner = minetest.get_player_by_name(self.owner_name)
-			if owner:is_player() then
+			if owner and owner:is_player() then
 				if self.waypoint_actived=="true"	then
 					if self.waypoint_position ~= self.object:getpos() then
 						self.waypoint_position = self.object:getpos()
@@ -241,9 +241,17 @@ function modUFO.ufo:on_step (dtime)
 								hud_elem_type = "waypoint",
 								name = self.shipname:upper(),
 								--number = modbeacon2.huds.doRgb2hex(thisBeacon.color),
-								number = "0x8888FF",  
+								number = "0x00FF00",  
 								world_pos = self.object:getpos()
 							})
+							modUFO.play_fail(owner)
+							modUFO.send_message(self, self.owner_name, 
+								modUFO.translate("Showing the location signal of your UFO!")
+								.." "
+								..core.get_color_escape_sequence("#00FF00")
+								..minetest.pos_to_string(modUFO.floor_pos(self.object:getpos()))
+								..core.get_color_escape_sequence("#FFFFFF")
+							)
 						end
 					end
 				elseif self.waypoint_handler then
@@ -291,7 +299,7 @@ function modUFO.ufo:get_staticdata()
 	return 
 		tostring(self.owner_name)
 		..";"..tostring(self.fuel)
-		..";"..tostring(self.shipname or "")
+		..";"..tostring(self.shipname)
 		..";"..tostring(self.waypoint_actived)
 		..";"..tostring(self.inertia_cancel)
 end

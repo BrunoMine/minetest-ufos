@@ -5,11 +5,13 @@ minetest.register_privilege(
 	}
 )
 
---[[
 modUFO.floor_pos = function(pos)
-	return {x=math.floor(pos.x),y=math.floor(pos.y),z=math.floor(pos.z)}
+	return {
+		x=math.floor(pos.x),
+		y=math.floor(pos.y),
+		z=math.floor(pos.z)
+	}
 end
---]]
 
 modUFO.play_fail = function(object)
 	minetest.sound_play(
@@ -21,9 +23,7 @@ end
 modUFO.send_message = function(self, playername, message)
 	local newmsg = core.get_color_escape_sequence("#00FF00").."["
 	if self and self.shipname~="" then
-		newmsg=newmsg
-		--..modUFO.translate("ufo"):upper().. " "
-		..self.shipname:upper()
+		newmsg=newmsg..self.shipname:upper()
 	else
 		newmsg=newmsg..modUFO.translate("ufo"):upper()
 	end
@@ -560,9 +560,9 @@ modUFO.ufo_to_item = function(self)
 	itemstack:set_wear(wear)
 	
 	local data = {
-		shipname = self.shipname or "",
-		waypoint_actived = self.waypoint_actived or false,
-		inertia_cancel = self.inertia_cancel or true,
+		shipname = self.shipname,
+		waypoint_actived = self.waypoint_actived,
+		inertia_cancel = self.inertia_cancel,
 	}
 	itemstack:get_meta():from_table({fields = data})
 	return itemstack
@@ -595,9 +595,9 @@ modUFO.ufo_from_item = function(itemstack, placer, pointed_thing)
 	end
 	local data = meta:to_table().fields
 	if data then
-		ship:get_luaentity().shipname = data.shipname or ""
-		ship:get_luaentity().waypoint_actived = data.waypoint_actived or false
-		ship:get_luaentity().inertia_cancel = data.inertia_cancel or true
+		ship:get_luaentity().shipname = data.shipname
+		ship:get_luaentity().waypoint_actived = data.waypoint_actived
+		ship:get_luaentity().inertia_cancel = data.inertia_cancel
 	end
 	
 	-- remove the item
@@ -628,6 +628,11 @@ modUFO.check_owner = function(self, player)
 			modUFO.play_fail(self.object)
 			return false
 		end
+	else
+		modUFO.send_message(self, playername, 
+			modUFO.translate("You can not interact with a UFO owned by '%s'!"):format(self.owner_name)
+		)
+		modUFO.play_fail(self.object)
 	end
 end
 

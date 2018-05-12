@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-11 23:15-0300\n"
+"POT-Creation-Date: 2018-05-12 00:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
@@ -23,7 +23,7 @@ msgstr ""
 msgid "Control the UFOs of other players."
 msgstr ""
 
-#: api.lua:28 ship.lua:303 ship.lua:360
+#: api.lua:28 ship.lua:311 ship.lua:368
 msgid "ufo"
 msgstr ""
 
@@ -229,9 +229,14 @@ msgstr ""
 msgid "This UFO was not protected, you are now its owner!"
 msgstr ""
 
-#: api.lua:625
+#: api.lua:626
 #, lua-format
 msgid "Hold 'Run Key'(R or Ctrl) and Click to control the UFO owned by '%s'!"
+msgstr ""
+
+#: api.lua:633
+#, lua-format
+msgid "You can not interact with a UFO owned by '%s'!"
 msgstr ""
 
 #: furnace.lua:2 furnace.lua:13
@@ -263,10 +268,14 @@ msgstr ""
 #: ship.lua:114
 #, lua-format
 msgid ""
-"It is not possible to shrink this vehicle before the captain '%s' comes out "
+"It is not possible to shrink this vehicle before the pilot '%s' comes out "
 "of it!"
 msgstr ""
 
-#: ship.lua:361
+#: ship.lua:249
+msgid "Showing the location signal of your UFO!"
+msgstr ""
+
+#: ship.lua:369
 msgid "ship"
 msgstr ""
