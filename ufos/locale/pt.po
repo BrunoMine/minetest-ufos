@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PORTUGUESE 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-11 17:31-0300\n"
-"PO-Revision-Date: 2018-05-11 18:10-0300\n"
+"POT-Creation-Date: 2018-05-11 23:15-0300\n"
+"PO-Revision-Date: 2018-05-11 23:20-0300\n"
 "Last-Translator: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
 "Lunovox>\n"
 "Language-Team: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
 "Lunovox>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: pt\n"
 
 #: api.lua:3
 msgid "Control the UFOs of other players."
@@ -230,7 +230,11 @@ msgstr "2º ← Pressione 'CORRER' (Key E) em seu OVNI para recarregá-lo!"
 msgid "CARRIER TRUNK owned by '%s':"
 msgstr "PORTA-MALA de '%s':"
 
-#: api.lua:623
+#: api.lua:614
+msgid "This UFO was not protected, you are now its owner!"
+msgstr "Este OVNI não estava protegido.. Agora você é o novo dono!"
+
+#: api.lua:625
 #, lua-format
 msgid "Hold 'Run Key'(R or Ctrl) and Click to control the UFO owned by '%s'!"
 msgstr ""

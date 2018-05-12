@@ -610,7 +610,10 @@ end
 modUFO.check_owner = function(self, player)
 	local playername = player:get_player_name()	
 	if self.owner_name == "" then
-		minetest.chat_send_player(playername, "This UFO was not protected, you are now its owner !")
+		modUFO.send_message(self, playername, 
+			modUFO.translate("This UFO was not protected, you are now its owner!")
+		)
+		modUFO.play_fail(self.object)
 		self.owner_name = playername
 		return true
 	elseif playername == self.owner_name then

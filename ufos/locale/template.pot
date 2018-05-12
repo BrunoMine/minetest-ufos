@@ -226,7 +226,7 @@ msgid "CARRIER TRUNK owned by '%s':"
 msgstr ""
 
 #: api.lua:614
-msgid "This UFO was not protected, you are now its owner !"
+msgid "This UFO was not protected, you are now its owner!"
 msgstr ""
 
 #: api.lua:625
