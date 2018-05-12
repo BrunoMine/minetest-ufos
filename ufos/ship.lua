@@ -18,7 +18,7 @@ modUFO.ufo = {
 	collisionbox = {-1.5,-0.5,-1.5	 ,1.5,1.0,1.5}, --top retracted to use sword as it flies.
 	visual = "mesh",
 	mesh = "ufo.x",
-	textures = {"ufo_0.png"},
+	textures = {"ufo.png^fuel_0.png"},
 	
 	driver = nil,
 	owner_name = "",
@@ -266,7 +266,7 @@ function modUFO.ufo:on_step (dtime)
 	if self.fueli ~= math.ceil(fuel*8/100) then
 		self.fueli = math.ceil(fuel*8/100)
 		--print(self.fueli)
-		self.textures = {"ufo_"..self.fueli..".png"}
+		self.textures = {"ufo.png^fuel_"..self.fueli..".png"}
 		self.object:set_properties(self)
 	end
 
