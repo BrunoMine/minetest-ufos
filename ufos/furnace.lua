@@ -1,9 +1,16 @@
 minetest.register_node("ufos:furnace", {
 	description = modUFO.translate("UFO charging device"),
-	tiles = {"default_steel_block.png", "default_steel_block.png", "default_steel_block.png",
-		"default_steel_block.png", "default_steel_block.png", 
-		"default_steel_block.png^ufos_furnace_front.png"},
+	tiles = {
+		"default_obsidian.png^default_mese_crystal.png^gui_hotbar_selected.png", --top
+		"default_obsidian.png^default_mese_crystal.png^gui_hotbar_selected.png", --down
+		"default_obsidian.png^gui_hotbar_selected.png^reloader_yellow_face.png", --right
+		"default_obsidian.png^gui_hotbar_selected.png^reloader_yellow_face.png", --left
+		"default_obsidian.png^gui_hotbar_selected.png^reloader_yellow_face.png", --end
+		"default_steel_block.png^reloader_front.png^gui_hotbar_selected.png"-- front
+	},
 	paramtype2 = "facedir",
+	paramtype = "light",
+	light_source = default.LIGHT_MAX,
 	groups = {cracky=2},
 	legacy_facedir_simple = true,
 	sounds = default.node_sound_stone_defaults(),
@@ -21,6 +28,32 @@ minetest.register_node("ufos:furnace", {
 			return false
 		end
 		return true
+	end,
+})
+
+minetest.register_abm({
+	nodenames = {"ufos:furnace"},
+	interval = 1,
+	chance = 2,
+	action = function(pos, node)
+		minetest.add_particlespawner({
+			amount = 32,
+			time = 4,
+			minpos = {x=pos.x-0.5, y=pos.y, z=pos.z-0.5},
+			maxpos = {x=pos.x+0.5, y=pos.y, z=pos.z+0.5},
+			minvel = {x=-0.8,	y=-0.3,	z=-0.8},
+			maxvel = {x=0.8,	y=0.3,	z=0.8},
+			minacc = {x=0, y=0, z=0},
+			maxacc = {x=0, y=0, z=0},
+			minexptime = 0.5,
+			maxexptime = 2,
+			minsize = 1,
+			maxsize = 2,
+			collisiondetection = false,
+			vertical = true,
+			texture = "reloader_yellow_particle.png",
+			--playername = "singleplayer",
+		})
 	end,
 })
 
@@ -95,9 +128,9 @@ minetest.register_abm({
 minetest.register_craft( {
 	output = 'ufos:furnace',
 	recipe = {
-		{ "default:steel_ingot"	, "default:obsidian"	, "default:steel_ingot"	},
-		{ "default:obsidian"		, "default:furnace"	, "default:obsidian"		},
-		{ "default:steel_ingot"	, "default:obsidian"	, "default:steel_ingot"	},
+		{ "default:steel_ingot"	, "default:obsidian"		, "default:steel_ingot"	},
+		{ "default:furnace"		, "default:mese_block"	, "default:obsidian"		},
+		{ "default:steel_ingot"	, "default:obsidian"		, "default:steel_ingot"	},
 	},
 })
 
@@ -105,3 +138,5 @@ minetest.register_alias("loader","ufos:furnace")
 minetest.register_alias("loaderufo","ufos:furnace")
 minetest.register_alias(modUFO.translate("loader"),"ufos:furnace")
 minetest.register_alias(modUFO.translate("loaderufos"),"ufos:furnace")
+minetest.register_alias(modUFO.translate("reloader"),"ufos:furnace")
+minetest.register_alias(modUFO.translate("reloaderufos"),"ufos:furnace")
