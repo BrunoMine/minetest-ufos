@@ -21,14 +21,17 @@ modUFO.play_fail = function(object)
 end
 
 modUFO.send_message = function(self, playername, message)
-	local newmsg = core.get_color_escape_sequence("#00FF00").."["
+	--core.colorize(color, message)
+	--core.get_background_escape_sequence("#00ff00")
+	--core.get_color_escape_sequence("#ff0000")
 	if self and self.shipname~="" then
-		newmsg=newmsg..self.shipname:upper()
+		message=core.get_background_escape_sequence("#FFFFFF")..
+		core.colorize("#00FF00", "["..self.shipname:upper().."]").." "..message
 	else
-		newmsg=newmsg..modUFO.translate("ufo"):upper()
+		message=core.get_background_escape_sequence("#FFFFFF")..
+		core.colorize("#00FF00", "["..modUFO.translate("ufo"):upper().."]").." "..message
 	end
-	newmsg=newmsg.."] "..core.get_color_escape_sequence("#FFFFFF")..message
-	minetest.chat_send_player(playername, newmsg)
+	minetest.chat_send_player(playername, message)
 end
 
 
@@ -520,6 +523,17 @@ modUFO.on_player_receive_fields = function(self, sender, formname, fields)
 		end
 		if fields.chkInertiaCancel then
 			self.inertia_cancel = fields.chkInertiaCancel
+			if self.inertia_cancel == "false" then
+				modUFO.play_fail(owner)
+				modUFO.send_message(self, self.driver:get_player_name(), 
+					modUFO.translate("Disabled 'Inertia Cancel' of this UFO!")
+				)
+			elseif self.inertia_cancel == "true" then
+				modUFO.play_fail(owner)
+				modUFO.send_message(self, self.driver:get_player_name(), 
+					modUFO.translate("Enabled 'Inertia Cancel' of this UFO!")
+				)			
+			end
 		end
 		if fields.btnSaveSettings	 then
 			minetest.show_formspec(
@@ -568,13 +582,6 @@ modUFO.ufo_to_item = function(self)
 	}
 	itemstack:get_meta():from_table({fields = data})
 	return itemstack
-	
-	--[[
-	return {
-		name="ufos:ship",
-		wear=wear
-	}
-	--]]
 end
 
 modUFO.ufo_from_item = function(itemstack, placer, pointed_thing)
@@ -587,21 +594,23 @@ modUFO.ufo_from_item = function(itemstack, placer, pointed_thing)
 		modUFO.fuel_from_wear(wear)
 	)
 	-- add the entity
-	ship = minetest.env:add_entity(pointed_thing.above, "ufos:ship")
-	ship:setyaw(placer:get_look_yaw() - math.pi / 2)
+	--ship = minetest.env:add_entity(pointed_thing.above, "ufos:ship")
+	ship = minetest.add_entity(pointed_thing.above, "ufos:ship")
+	if ship then
+		ship:setyaw(placer:get_look_yaw() - math.pi / 2)
 
-	local meta = itemstack:get_meta()
-	local old_data = minetest.deserialize(itemstack:get_metadata())
-	if old_data then
-		meta:from_table({ fields = old_data })
+		local meta = itemstack:get_meta()
+		local old_data = minetest.deserialize(itemstack:get_metadata())
+		if old_data then
+			meta:from_table({ fields = old_data })
+		end
+		local data = meta:to_table().fields
+		if data then
+			ship:get_luaentity().shipname = data.shipname
+			ship:get_luaentity().waypoint_actived = data.waypoint_actived
+			ship:get_luaentity().inertia_cancel = data.inertia_cancel
+		end
 	end
-	local data = meta:to_table().fields
-	if data then
-		ship:get_luaentity().shipname = data.shipname
-		ship:get_luaentity().waypoint_actived = data.waypoint_actived
-		ship:get_luaentity().inertia_cancel = data.inertia_cancel
-	end
-	
 	-- remove the item
 	itemstack:take_item()
 	

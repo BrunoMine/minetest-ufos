@@ -129,6 +129,19 @@ function modUFO.ufo:on_step (dtime)
 		if fuel == nil then fuel = 0 end
 		
 		if fuel > 0 and ctrl.up then
+			if ctrl.aux1 and self.inertia_cancel~="false" then
+				self.inertia_cancel="false"
+				modUFO.play_fail(owner)
+				modUFO.send_message(self, self.driver:get_player_name(), 
+					modUFO.translate("Disabled 'Inertia Cancel' of this UFO!")
+				)
+			elseif not ctrl.aux1 and self.inertia_cancel~="true" then
+				self.inertia_cancel="true"
+				modUFO.play_fail(owner)
+				modUFO.send_message(self, self.driver:get_player_name(), 
+					modUFO.translate("Enabled 'Inertia Cancel' of this UFO!")
+				)
+			end
 			vel.x = vel.x + math.cos(self.object:getyaw()+math.pi/2)*modUFO.ship_acceleration
 			vel.z = vel.z + math.sin(self.object:getyaw()+math.pi/2)*modUFO.ship_acceleration
 			fuel = fuel - modUFO.ship_fuel_use
