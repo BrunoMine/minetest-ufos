@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 "Language: <LANGUAGE>\n"
+"X-Poedit-KeywordsList: modUFO.translate\n"
 
 #: api.lua:3
 msgid "Control the UFOs of other players."
