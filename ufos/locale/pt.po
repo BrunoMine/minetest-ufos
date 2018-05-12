@@ -1,0 +1,275 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PORTUGUESE 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-11 17:31-0300\n"
+"PO-Revision-Date: 2018-05-11 18:10-0300\n"
+"Last-Translator: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
+"Lunovox>\n"
+"Language-Team: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
+"Lunovox>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: pt\n"
+
+#: api.lua:3
+msgid "Control the UFOs of other players."
+msgstr "Controla o OVNI de outro jogador."
+
+#: api.lua:28 ship.lua:303 ship.lua:360
+msgid "ufo"
+msgstr "ovni"
+
+#: api.lua:70
+#, lua-format
+msgid "This function only work if admin install mod '%s'!"
+msgstr "Esta função só funciona se o admin instalar mod '%s'!"
+
+#: api.lua:127
+msgid "The forge was turned off for lack of space for cooked items."
+msgstr "A forja foi desligada por falta de espaço para mais itens cozinhados."
+
+#: api.lua:144
+msgid "The forge was turned off for lack of cookable items."
+msgstr "A forja foi desligada por falta de item cozível."
+
+#: api.lua:175
+msgid "The forge was turned off for empty fuel."
+msgstr "A forja foi desligada por falta de carga."
+
+#: api.lua:221
+#, lua-format
+msgid "The Captain '%s' has placed %02d '%s' in UFO Eletric Forge!"
+msgstr "O Capitão '%s' colocou %02d '%s' na Forja Elétrica do OVNI!"
+
+#: api.lua:228
+#, lua-format
+msgid "The Captain '%s' has removed %02d '%s' in UFO Eletric Forge!"
+msgstr "O Capitão '%s' retirou %02d '%s' da Forja Elétrica do OVNI!"
+
+#: api.lua:287
+msgid "You have to brake that UFO before you leave!"
+msgstr "Você tem que freiar este OVNI antes de sair dele."
+
+#: api.lua:303
+msgid "UFO SYSTEM CONTROL"
+msgstr "SISTEMA DE CONTROLE DO OVNI"
+
+#: api.lua:304
+msgid "UFO MANUAL"
+msgstr "MANUAL DO OVNI"
+
+#: api.lua:305
+msgid "FIVE TONES"
+msgstr "CONTATO IMEDIATO"
+
+#: api.lua:306
+msgid "MAILBOX"
+msgstr "CAIXA DE MENSAGENS"
+
+#: api.lua:307
+msgid "CARRIER TRUNK"
+msgstr "PORTA-MALA"
+
+#: api.lua:308 api.lua:370
+msgid "UFO SETTINGS"
+msgstr "CONFIGURAÇÕES"
+
+#: api.lua:309 api.lua:393
+msgid "ELETRIC FORGE"
+msgstr "FORJA ELÉTRICA"
+
+#: api.lua:310
+msgid "NAVEGATION"
+msgstr "--==NAVEGAÇÃO==--"
+
+#: api.lua:311
+msgid "UPGRADES"
+msgstr "--==ATUALIZAÇÃO==--"
+
+#: api.lua:314 api.lua:352
+msgid "EMERGENCY EJECTION"
+msgstr "EJEÇÃO DE EMERGÊNCIA"
+
+#: api.lua:316
+msgid "LEAVE UFO"
+msgstr "SAIR DO OVNI"
+
+#: api.lua:323
+msgid "UFO MANUAL - CONTROLS"
+msgstr "MANUAL DO OVNI - CONTROLES"
+
+#: api.lua:324
+msgid "Key W (UP) ← Accelerator"
+msgstr "Botão W (ACIMA) ← Acelerador"
+
+#: api.lua:325
+msgid "Key S (DOWN) ← Brake"
+msgstr "Botão S (ABAIXO) ← Freio"
+
+#: api.lua:326
+msgid "Key A (LEFT) ← Turn Lett"
+msgstr "Botão A (ESQUERDA) ← Gira para Esquerda"
+
+#: api.lua:327
+msgid "Key D (RIGHT) ← Turn Right"
+msgstr "Botão D (DIREITA) ← Gira para Direita"
+
+#: api.lua:328
+msgid "Key Spacebar (JUMP) ← To lift"
+msgstr "Botão PULAR (Espaço) ← Levanta a Nave"
+
+#: api.lua:329
+msgid "Key Shift (SNAKE) ← To down"
+msgstr "Botão ESGUEIRAR (Shift) ← Desce a Nave"
+
+#: api.lua:330
+msgid "Key S (Brake) + Run Key (R or Ctrl) ← Five Tones"
+msgstr "Botão S (Freio) + Botão 'CORRER' (R ou Ctrl) ← Buzina"
+
+#: api.lua:331
+msgid "Key Shift (SNAKE) + Run Key (R or Ctrl) ← Emergency Ejection"
+msgstr "Botão 'ESGUEIRAR' + Botão 'CORRER' ← Ejeção de Emergência"
+
+#: api.lua:332
+msgid "Key Sides (A or D) + Key Run (R or Ctrl) ← Walks to the side"
+msgstr "Botões (A ou D) + Botão 'CORRER' ← Anda para o Lado"
+
+#: api.lua:334 api.lua:345
+msgid "MENU BACK"
+msgstr "VOLTAR MENU"
+
+#: api.lua:335
+msgid "NEXT"
+msgstr "PRÓXIMO"
+
+#: api.lua:339
+msgid "UFO MANUAL - MAINTENANCE"
+msgstr "MANUAL DO OVNI - MANUTENÇÃO"
+
+#: api.lua:341
+msgid ""
+"Do not forget your UFO in the garage. Your UFO can be deleted \n"
+"from the server when admin applies maintenance procedures on \n"
+"the server. Save your UFO as an item."
+msgstr ""
+"Não esqueça seu OVNI na garagem. Seu OVNI pode ser deletado \n"
+"do servidor quando o administrador aplicar procedimentos de \n"
+"manutenção no servidor. Guarde seu OVNI como item."
+
+#: api.lua:344
+msgid "PREVIOUS"
+msgstr "VOLTAR"
+
+#: api.lua:356
+msgid "The UFO recommends that you land on a flat ground."
+msgstr "O OVNI recomenda que você aterrisse em local plano. "
+
+#: api.lua:361
+msgid "Do you really want to leave the UFO on this ground?"
+msgstr "Você realmente deseja sair deste OVNI neste terreno irregular?"
+
+#: api.lua:364
+msgid "YES"
+msgstr "SIM"
+
+#: api.lua:365
+msgid "NOT"
+msgstr "NÃO"
+
+#: api.lua:373
+msgid "Ship Name"
+msgstr "Nome da Nave"
+
+#: api.lua:378
+msgid "Enable 'UFO tracer'."
+msgstr "Ativar 'Rastreador UFO'"
+
+#: api.lua:382
+msgid ""
+"Enable 'Inertia Cancel'.\n"
+"(Spend fuel constantly if off)"
+msgstr ""
+"Ativar 'Anulador de Inércia'.\n"
+"(Gasta combustível constantemente se desligado)"
+
+#: api.lua:386
+msgid "OK"
+msgstr "OK"
+
+#: api.lua:398
+msgid "DISABLE"
+msgstr "DESATIVAR"
+
+#: api.lua:400
+msgid "ENABLE"
+msgstr "ATIVAR"
+
+#: api.lua:419
+#, lua-format
+msgid "Fuel: %s"
+msgstr "Carga: %s"
+
+#: api.lua:421
+msgid "1º ← You need to park your UFO next to this!"
+msgstr "1º ← Estacione seu OVNI perto deste carregador!"
+
+#: api.lua:422
+msgid "2º ← Press 'run key'(Key E) in your UFO to reload!"
+msgstr "2º ← Pressione 'CORRER' (Key E) em seu OVNI para recarregá-lo!"
+
+#: api.lua:488
+#, lua-format
+msgid "CARRIER TRUNK owned by '%s':"
+msgstr "PORTA-MALA de '%s':"
+
+#: api.lua:623
+#, lua-format
+msgid "Hold 'Run Key'(R or Ctrl) and Click to control the UFO owned by '%s'!"
+msgstr ""
+"Segure o botão 'CORRER' (R or Ctrl) e Clique para controlar OVNI de '%s'!"
+
+#: furnace.lua:2 furnace.lua:13
+msgid "UFO charging device"
+msgstr "Carregador de OVNIs"
+
+#: furnace.lua:89 ship.lua:210
+#, lua-format
+msgid "Charge: %02d GWh (Gigawatts Hour)"
+msgstr "Carga: %02d GWh (Gigawatts-Hora)"
+
+#: furnace.lua:106
+msgid "loader"
+msgstr "carregador"
+
+#: furnace.lua:107
+msgid "loaderufos"
+msgstr "carregadorovni"
+
+#: ship.lua:61
+#, lua-format
+msgid "Welcome to your ship, Captain %s!"
+msgstr "Bem vindo a sua nave, Capitão %s!"
+
+#: ship.lua:64
+msgid "welcome_en"
+msgstr "welcome_pt"
+
+#: ship.lua:114
+#, lua-format
+msgid ""
+"It is not possible to shrink this vehicle before the captain '%s' comes out "
+"of it!"
+msgstr ""
+"Não é possível encolher este veículo ante do capitão '%s' sair deste OVNI!"
+
+#: ship.lua:361
+msgid "ship"
+msgstr "Nave"

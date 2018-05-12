@@ -1,0 +1,266 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-11 17:31-0300\n"
+"PO-Revision-Date: 2018-05-11 17:35-0300\n"
+"Last-Translator: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
+"Lunovox>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: api.lua:3
+msgid "Control the UFOs of other players."
+msgstr ""
+
+#: api.lua:28 ship.lua:303 ship.lua:360
+msgid "ufo"
+msgstr ""
+
+#: api.lua:70
+#, lua-format
+msgid "This function only work if admin install mod '%s'!"
+msgstr ""
+
+#: api.lua:127
+msgid "The forge was turned off for lack of space for cooked items."
+msgstr ""
+
+#: api.lua:144
+msgid "The forge was turned off for lack of cookable items."
+msgstr ""
+
+#: api.lua:175
+msgid "The forge was turned off for empty fuel."
+msgstr ""
+
+#: api.lua:221
+#, lua-format
+msgid "The Captain '%s' has placed %02d '%s' in UFO Eletric Forge!"
+msgstr ""
+
+#: api.lua:228
+#, lua-format
+msgid "The Captain '%s' has removed %02d '%s' in UFO Eletric Forge!"
+msgstr ""
+
+#: api.lua:287
+msgid "You have to brake that UFO before you leave!"
+msgstr ""
+
+#: api.lua:303
+msgid "UFO SYSTEM CONTROL"
+msgstr ""
+
+#: api.lua:304
+msgid "UFO MANUAL"
+msgstr ""
+
+#: api.lua:305
+msgid "FIVE TONES"
+msgstr ""
+
+#: api.lua:306
+msgid "MAILBOX"
+msgstr ""
+
+#: api.lua:307
+msgid "CARRIER TRUNK"
+msgstr ""
+
+#: api.lua:308 api.lua:370
+msgid "UFO SETTINGS"
+msgstr ""
+
+#: api.lua:309 api.lua:393
+msgid "ELETRIC FORGE"
+msgstr ""
+
+#: api.lua:310
+msgid "NAVEGATION"
+msgstr ""
+
+#: api.lua:311
+msgid "UPGRADES"
+msgstr ""
+
+#: api.lua:314 api.lua:352
+msgid "EMERGENCY EJECTION"
+msgstr ""
+
+#: api.lua:316
+msgid "LEAVE UFO"
+msgstr ""
+
+#: api.lua:323
+msgid "UFO MANUAL - CONTROLS"
+msgstr ""
+
+#: api.lua:324
+msgid "Key W (UP) ← Accelerator"
+msgstr ""
+
+#: api.lua:325
+msgid "Key S (DOWN) ← Brake"
+msgstr ""
+
+#: api.lua:326
+msgid "Key A (LEFT) ← Turn Lett"
+msgstr ""
+
+#: api.lua:327
+msgid "Key D (RIGHT) ← Turn Right"
+msgstr ""
+
+#: api.lua:328
+msgid "Key Spacebar (JUMP) ← To lift"
+msgstr ""
+
+#: api.lua:329
+msgid "Key Shift (SNAKE) ← To down"
+msgstr ""
+
+#: api.lua:330
+msgid "Key S (Brake) + Run Key (R or Ctrl) ← Five Tones"
+msgstr ""
+
+#: api.lua:331
+msgid "Key Shift (SNAKE) + Run Key (R or Ctrl) ← Emergency Ejection"
+msgstr ""
+
+#: api.lua:332
+msgid "Key Sides (A or D) + Key Run (R or Ctrl) ← Walks to the side"
+msgstr ""
+
+#: api.lua:334 api.lua:345
+msgid "MENU BACK"
+msgstr ""
+
+#: api.lua:335
+msgid "NEXT"
+msgstr ""
+
+#: api.lua:339
+msgid "UFO MANUAL - MAINTENANCE"
+msgstr ""
+
+#: api.lua:341
+msgid ""
+"Do not forget your UFO in the garage. Your UFO can be deleted \n"
+"from the server when admin applies maintenance procedures on \n"
+"the server. Save your UFO as an item."
+msgstr ""
+
+#: api.lua:344
+msgid "PREVIOUS"
+msgstr ""
+
+#: api.lua:356
+msgid "The UFO recommends that you land on a flat ground."
+msgstr ""
+
+#: api.lua:361
+msgid "Do you really want to leave the UFO on this ground?"
+msgstr ""
+
+#: api.lua:364
+msgid "YES"
+msgstr ""
+
+#: api.lua:365
+msgid "NOT"
+msgstr ""
+
+#: api.lua:373
+msgid "Ship Name"
+msgstr ""
+
+#: api.lua:378
+msgid "Enable 'UFO tracer'."
+msgstr ""
+
+#: api.lua:382
+msgid ""
+"Enable 'Inertia Cancel'.\n"
+"(Spend fuel constantly if off)"
+msgstr ""
+
+#: api.lua:386
+msgid "OK"
+msgstr ""
+
+#: api.lua:398
+msgid "DISABLE"
+msgstr ""
+
+#: api.lua:400
+msgid "ENABLE"
+msgstr ""
+
+#: api.lua:419
+#, lua-format
+msgid "Fuel: %s"
+msgstr ""
+
+#: api.lua:421
+msgid "1º ← You need to park your UFO next to this!"
+msgstr ""
+
+#: api.lua:422
+msgid "2º ← Press 'run key'(Key E) in your UFO to reload!"
+msgstr ""
+
+#: api.lua:488
+#, lua-format
+msgid "CARRIER TRUNK owned by '%s':"
+msgstr ""
+
+#: api.lua:623
+#, lua-format
+msgid "Hold 'Run Key'(R or Ctrl) and Click to control the UFO owned by '%s'!"
+msgstr ""
+
+#: furnace.lua:2 furnace.lua:13
+msgid "UFO charging device"
+msgstr ""
+
+#: furnace.lua:89 ship.lua:210
+#, lua-format
+msgid "Charge: %02d GWh (Gigawatts Hour)"
+msgstr ""
+
+#: furnace.lua:106
+msgid "loader"
+msgstr ""
+
+#: furnace.lua:107
+msgid "loaderufos"
+msgstr ""
+
+#: ship.lua:61
+#, lua-format
+msgid "Welcome to your ship, Captain %s!"
+msgstr ""
+
+#: ship.lua:64
+msgid "welcome_en"
+msgstr ""
+
+#: ship.lua:114
+#, lua-format
+msgid ""
+"It is not possible to shrink this vehicle before the captain '%s' comes out "
+"of it!"
+msgstr ""
+
+#: ship.lua:361
+msgid "ship"
+msgstr ""

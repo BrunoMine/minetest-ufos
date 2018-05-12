@@ -1,0 +1,14 @@
+ Modding derivado do MOD "Ufo"
+
+Adiciona um veiculo de sobre voo:
+ * Combustivel: Fragmento de Obesidiana
+ * Carregar: Botão de Correr (E ou Ctrl)
+ * Limitacao: Somente player nivel 5
+ * Porta-Mala: Shift+Ctrl+Down [Bugado:Desabilitado]
+ 
+License: 
+ * WTFPL
+Credits:
+ * Zeg9 for code
+ * Melkor for model and texture
+ * Lunovox for trunk and portuguese translate 
