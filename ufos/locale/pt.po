@@ -237,8 +237,7 @@ msgstr "Este OVNI não estava protegido.. Agora você é o novo dono!"
 #: api.lua:625
 #, lua-format
 msgid "Hold 'Run Key'(R or Ctrl) and Click to control the UFO owned by '%s'!"
-msgstr ""
-"Segure o botão 'CORRER' (R or Ctrl) e Clique para controlar OVNI de '%s'!"
+msgstr "Segure o botão 'CORRER' (R or Ctrl) e Clique para controlar OVNI de '%s'!"
 
 #: furnace.lua:2 furnace.lua:13
 msgid "UFO charging device"
@@ -268,11 +267,8 @@ msgstr "welcome_pt"
 
 #: ship.lua:114
 #, lua-format
-msgid ""
-"It is not possible to shrink this vehicle before the captain '%s' comes out "
-"of it!"
-msgstr ""
-"Não é possível encolher este veículo ante do capitão '%s' sair deste OVNI!"
+msgid "It is not possible to shrink this vehicle before the captain '%s' comes out of it!"
+msgstr "Não é possível encolher este veículo ante do capitão '%s' sair deste OVNI!"
 
 #: ship.lua:361
 msgid "ship"
