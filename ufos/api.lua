@@ -593,14 +593,14 @@ modUFO.ufo_to_item = function(self, takername)
 		local thisStack = self.forge.inventory:get_stack("src", i)
 		if thisStack:get_name()~="" then
 			if tmpDatabase.forgeListSrc~="" then tmpDatabase.forgeListSrc = tmpDatabase.forgeListSrc ..";" end
-			tmpDatabase.forgeListSrc = tmpDatabase.forgeListSrc..thisStack:get_name().." "..thisStack:get_count().." "..thisStack:get_wear()
+			tmpDatabase.forgeListSrc = tmpDatabase.forgeListSrc..thisStack:to_string()
 		end
 	end
 	for i=1,self.forge.inventory:get_size("dst") do
 		local thisStack = self.forge.inventory:get_stack("dst", i)
 		if thisStack:get_name()~="" then
 			if tmpDatabase.forgeListDst~="" then tmpDatabase.forgeListDst = tmpDatabase.forgeListDst ..";" end
-			tmpDatabase.forgeListDst = tmpDatabase.forgeListDst..thisStack:get_name().." "..thisStack:get_count().." "..thisStack:get_wear()
+			tmpDatabase.forgeListDst = tmpDatabase.forgeListDst..thisStack:to_string()
 		end
 	end
 	--modUFO.send_message(self, takername, "tmpDatabase="..dump(tmpDatabase))
