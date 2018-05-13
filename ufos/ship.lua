@@ -5,7 +5,7 @@ modUFO.ufo = {
 	waypoint_actived = "false",
 	inertia_cancel = "true",
 	forge = {
-		source = nil,
+		inventory = nil,
 		temperature = 0, --0 to 100%
 		enabled = false,
 		visibled = false,
@@ -78,12 +78,42 @@ function modUFO.ufo:on_activate (staticdata, dtime_s)
 		self.owner_name = modUFO.next_owner
 		modUFO.next_owner = ""
 	else
-		local data = staticdata:split(';')
-		self.owner_name = data[1] or ""
-		self.fuel = tonumber(data[2] or 0)
-		self.shipname = data[3] or self.shipname
-		self.waypoint_actived = data[4] or self.waypoint_actived
-		self.inertia_cancel = data[5] or self.inertia_cancel
+		local tmpDatabase = minetest.deserialize(staticdata)
+		if tmpDatabase then
+			self.shipname = tmpDatabase.shipname or self.shipname
+			self.owner_name = tmpDatabase.ownername or ""
+			self.fuel = tonumber(tmpDatabase.fuel or 0)
+			self.waypoint_actived = tmpDatabase.waypoint_actived or self.waypoint_actived
+			self.inertia_cancel = tmpDatabase.inertia_cancel or self.inertia_cancel
+
+			
+			self.forge.inventory = modUFO.getForgeInventory(self, self.owner_name)
+			self.forge.inventory:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
+			self.forge.inventory:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)
+			
+			for i=1,self.forge.inventory:get_size("src") do
+				if 
+					tmpDatabase.forge 
+					and tmpDatabase.forge.listSrc 
+					and tmpDatabase.forge.listSrc[i] 
+				then
+					self.forge.inventory:set_stack("src", i, ItemStack(tmpDatabase.forge.listSrc[i]))
+				else
+					self.forge.inventory:set_stack("src", i, nil)
+				end
+			end
+			for i=1,self.forge.inventory:get_size("dst") do
+				if 
+					tmpDatabase.forge 
+					and tmpDatabase.forge.listDst 
+					and tmpDatabase.forge.listDst[i] 
+				then
+					self.forge.inventory:set_stack("dst", i, ItemStack(tmpDatabase.forge.listDst[i]))
+				else
+					self.forge.inventory:set_stack("dst", i, nil)
+				end
+			end
+		end
 	end
 	if self.waypoint_handler and self.owner_name~="" then
 		local owner = minetest.get_player_by_name(self.owner_name)
@@ -102,7 +132,7 @@ function modUFO.ufo:on_punch (puncher, time_from_last_punch, tool_capabilities, 
 				if self.soundHandle~=nil then 
 					minetest.sound_stop(self.soundHandle) 
 				end
-				puncher:get_inventory():add_item("main", modUFO.ufo_to_item(self))
+				puncher:get_inventory():add_item("main", modUFO.ufo_to_item(self, puncher:get_player_name()))
 				if self.waypoint_handler then
 					puncher:hud_remove(self.waypoint_handler)
 					self.waypoint_handler = nil
@@ -131,13 +161,13 @@ function modUFO.ufo:on_step (dtime)
 		if fuel > 0 and ctrl.up then
 			if ctrl.aux1 and self.inertia_cancel~="false" then
 				self.inertia_cancel="false"
-				modUFO.play_fail(owner)
+				modUFO.play_fail(self.driver)
 				modUFO.send_message(self, self.driver:get_player_name(), 
 					modUFO.translate("Disabled 'Inertia Cancel' of this UFO!")
 				)
 			elseif not ctrl.aux1 and self.inertia_cancel~="true" then
 				self.inertia_cancel="true"
-				modUFO.play_fail(owner)
+				modUFO.play_fail(self.driver)
 				modUFO.send_message(self, self.driver:get_player_name(), 
 					modUFO.translate("Enabled 'Inertia Cancel' of this UFO!")
 				)
@@ -300,21 +330,44 @@ function modUFO.ufo:on_step (dtime)
 end
 
 function modUFO.ufo:get_staticdata()
-	--[[
-	if self.waypoint_handler and self.owner_name~="" then
+	--[[if self.waypoint_handler and self.owner_name~="" then
 		local owner = minetest.get_player_by_name(self.owner_name)
-		if owner:is_player() then
+		if owner and owner:is_player() then
 			owner:hud_remove(self.waypoint_handler)
 			self.waypoint_handler = nil
 		end
 	end
 	--]]
+	
+	local tmpDatabase = {
+		shipname = self.shipname,
+		ownername = self.owner_name,
+		fuel = self.fuel,
+		waypoint_actived = self.waypoint_actived,
+		inertia_cancel = self.inertia_cancel,
+		forge={
+			listSrc = { },
+			listDst = { },
+		},
+	}
+	if self.forge.inventory then
+		for i=1,self.forge.inventory:get_size("src") do
+			tmpDatabase.forge.listSrc[i] = self.forge.inventory:get_stack("src", i):to_table()
+		end
+		for i=1,self.forge.inventory:get_size("dst") do
+			tmpDatabase.forge.listDst[i] = self.forge.inventory:get_stack("dst", i):to_table()
+		end
+	end
+
+	return minetest.serialize(tmpDatabase)
+	--[[
 	return 
 		tostring(self.owner_name)
 		..";"..tostring(self.fuel)
 		..";"..tostring(self.shipname)
 		..";"..tostring(self.waypoint_actived)
 		..";"..tostring(self.inertia_cancel)
+	--]]
 end
 
 minetest.register_entity("ufos:ship", modUFO.ufo)

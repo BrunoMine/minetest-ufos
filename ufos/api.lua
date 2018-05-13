@@ -84,24 +84,24 @@ modUFO.onForgeStep = function(self)
 	if self.forge.upgrade_temperature~=os.time() then
 		self.forge.upgrade_temperature=os.time()
 		if self.forge.enabled and modUFO.get_fuel(self) > 0 then
-			if self.forge.source then
-				local srcList = self.forge.source:get_list("src")
-				local dstList = self.forge.source:get_list("dst")
+			if self.forge.inventory then
+				local srcList = self.forge.inventory:get_list("src")
+				local dstList = self.forge.inventory:get_list("dst")
 				local endPoint = (modUFO.forge.sizeSrc.width * modUFO.forge.sizeSrc.height)
 				--modUFO.send_message(self, self.owner_name, "endPoint="..endPoint)
-				if not self.forge.source:is_empty("src") and srcList[endPoint]:is_empty() then
+				if not self.forge.inventory:is_empty("src") and srcList[endPoint]:is_empty() then
 					while srcList[endPoint]:is_empty() do
 						for i=endPoint, 1, -1 do
 							--modUFO.send_message(self, self.owner_name, "srcList["..i.."]:get_name()="..srcList[i]:get_name())
 							if i < endPoint and not srcList[i]:is_empty() then
-								self.forge.source:set_stack(
+								self.forge.inventory:set_stack(
 									"src", i+1, 
-									self.forge.source:get_stack("src", i)
+									self.forge.inventory:get_stack("src", i)
 								)
-								self.forge.source:set_stack("src", i, {})
+								self.forge.inventory:set_stack("src", i, {})
 							end
 						end
-						srcList = self.forge.source:get_list("src")
+						srcList = self.forge.inventory:get_list("src")
 					end
 				end
 
@@ -114,10 +114,10 @@ modUFO.onForgeStep = function(self)
 						self.forge.cook_time_end = cooked.time
 						self.forge.cook_time_count = self.forge.cook_time_count + (1 * self.forge.temperature/100)
 						if self.forge.cook_time_count >= cooked.time then
-							if self.forge.source:room_for_item("dst", cooked.item) then
+							if self.forge.inventory:room_for_item("dst", cooked.item) then
 								self.forge.cook_time_count = 0
-								self.forge.source:add_item("dst", cooked.item)
-								self.forge.source:set_stack("src", endPoint, aftercooked.items[1])
+								self.forge.inventory:add_item("dst", cooked.item)
+								self.forge.inventory:set_stack("src", endPoint, aftercooked.items[1])
 							else
 								self.forge.enabled = false
 								self.forge.cook_time_count = 0
@@ -150,7 +150,7 @@ modUFO.onForgeStep = function(self)
 						end
 					end
 				end
-			end --if self.forge.source then
+			end --if self.forge.inventory then
 			if self.forge.enabled == true then
 				if self.forge.temperature < 100 then
 					self.forge.temperature = self.forge.temperature + 10
@@ -186,56 +186,58 @@ modUFO.onForgeStep = function(self)
 	end
 end
 
+modUFO.getForgeInventory = function(self, playername)
+	return minetest.create_detached_inventory("frmForge", {
+		-- Called when a player wants to move items inside the inventory
+		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player) 
+			local stack = inv:get_stack(from_list, from_index)
+			if to_list == "src" then
+				return stack:get_count()
+			elseif to_list == "dst" then
+				return 0
+			end
+		end,
+		-- Called when a player wants to put items into the inventory
+		allow_put = function(inv, listname, index, stack, player) 
+			if listname == "src" then
+				return stack:get_count()
+			elseif listname == "dst" then
+				return 0
+			end
+		end,
+		-- Called when a player wants to take items out of the inventory
+		allow_take = function(inv, listname, index, stack, player) 
+			return stack:get_count()
+		end,
+		-- on_* - no return value
+		-- Called after the actual action has happened, according to what was allowed.
+		on_move = function(inv, from_list, from_index, to_list, to_index, count, player) 
+		end,
+		on_put = function(inv, listname, index, stack, player) 
+			--modUFO.setSafeInventory(player:get_player_name(), inv:get_list("safe"))
+			minetest.log('action',
+				modUFO.translate("The Captain '%s' has placed %02d '%s' in UFO Eletric Forge!"):
+				format(playername, stack:get_count(), stack:get_name())
+			)
+		end,
+		on_take = function(inv, listname, index, stack, player) 
+			--modUFO.setSafeInventory(player:get_player_name(), inv:get_list("safe"))
+			minetest.log('action',
+				modUFO.translate("The Captain '%s' has removed %02d '%s' in UFO Eletric Forge!"):
+				format(playername, stack:get_count(), stack:get_name())
+			)
+		end,
+	})
+end
+
 modUFO.doButtonForge = function(self, driver)
 	self.forge.upgrade_formspec=os.time()
 	local drivername = driver:get_player_name()
-	if self.forge.source == nil then
+	if self.forge.inventory == nil then
 		--modUFO.send_message(self, drivername, "modUFO.get_fuel(self)"..modUFO.get_fuel(self))
-		--self.forge.source = minetest.create_detached_inventory_raw("frmForge")
-		self.forge.source = minetest.create_detached_inventory("frmForge", {
-			-- Called when a player wants to move items inside the inventory
-			allow_move = function(inv, from_list, from_index, to_list, to_index, count, player) 
-				local stack = inv:get_stack(from_list, from_index)
-				if to_list == "src" then
-					return stack:get_count()
-				elseif to_list == "dst" then
-					return 0
-				end
-			end,
-			-- Called when a player wants to put items into the inventory
-			allow_put = function(inv, listname, index, stack, player) 
-				if listname == "src" then
-					return stack:get_count()
-				elseif listname == "dst" then
-					return 0
-				end
-			end,
-			-- Called when a player wants to take items out of the inventory
-			allow_take = function(inv, listname, index, stack, player) 
-				return stack:get_count()
-			end,
-			-- on_* - no return value
-			-- Called after the actual action has happened, according to what was allowed.
-			on_move = function(inv, from_list, from_index, to_list, to_index, count, player) 
-			end,
-			on_put = function(inv, listname, index, stack, player) 
-				--modUFO.setSafeInventory(player:get_player_name(), inv:get_list("safe"))
-				minetest.log('action',
-					modUFO.translate("The Captain '%s' has placed %02d '%s' in UFO Eletric Forge!"):
-					format(player:get_player_name(), stack:get_count(), stack:get_name())
-				)
-			end,
-			on_take = function(inv, listname, index, stack, player) 
-				--modUFO.setSafeInventory(player:get_player_name(), inv:get_list("safe"))
-				minetest.log('action',
-					modUFO.translate("The Captain '%s' has removed %02d '%s' in UFO Eletric Forge!"):
-					format(player:get_player_name(), stack:get_count(), stack:get_name())
-				)
-			end,
-		
-		})
-		self.forge.source:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
-		self.forge.source:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)
+		self.forge.inventory = modUFO.getForgeInventory(self, drivername)
+		self.forge.inventory:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
+		self.forge.inventory:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)
 	end
 	--[[
 	if self.forge.enabled and modUFO.get_fuel(self) > 0 and self.forge.temperature < 100 then
@@ -570,17 +572,39 @@ modUFO.set_fuel = function(self,fuel,object)
 	self.fuel = fuel
 end
 
-modUFO.ufo_to_item = function(self)
+modUFO.ufo_to_item = function(self, takername)
 	local wear = modUFO.wear_from_fuel(modUFO.get_fuel(self))
 	local itemstack = ItemStack("ufos:ship")
 	itemstack:set_wear(wear)
 	
-	local data = {
+	local tmpDatabase = { --Unfortunately can only variables string and number.
 		shipname = self.shipname,
 		waypoint_actived = self.waypoint_actived,
 		inertia_cancel = self.inertia_cancel,
+		forgeListSrc = "",
+		forgeListDst = "",
 	}
-	itemstack:get_meta():from_table({fields = data})
+	if not self.forge.inventory then
+		self.forge.inventory = modUFO.getForgeInventory(self, takername)
+		self.forge.inventory:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
+		self.forge.inventory:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)
+	end
+	for i=1,self.forge.inventory:get_size("src") do
+		local thisStack = self.forge.inventory:get_stack("src", i)
+		if thisStack:get_name()~="" then
+			if tmpDatabase.forgeListSrc~="" then tmpDatabase.forgeListSrc = tmpDatabase.forgeListSrc ..";" end
+			tmpDatabase.forgeListSrc = tmpDatabase.forgeListSrc..thisStack:get_name().." "..thisStack:get_count().." "..thisStack:get_wear()
+		end
+	end
+	for i=1,self.forge.inventory:get_size("dst") do
+		local thisStack = self.forge.inventory:get_stack("dst", i)
+		if thisStack:get_name()~="" then
+			if tmpDatabase.forgeListDst~="" then tmpDatabase.forgeListDst = tmpDatabase.forgeListDst ..";" end
+			tmpDatabase.forgeListDst = tmpDatabase.forgeListDst..thisStack:get_name().." "..thisStack:get_count().." "..thisStack:get_wear()
+		end
+	end
+	--modUFO.send_message(self, takername, "tmpDatabase="..dump(tmpDatabase))
+	itemstack:get_meta():from_table({fields = tmpDatabase})
 	return itemstack
 end
 
@@ -593,9 +617,10 @@ modUFO.ufo_from_item = function(itemstack, placer, pointed_thing)
 		modUFO.ufo, 
 		modUFO.fuel_from_wear(wear)
 	)
+
 	-- add the entity
 	--ship = minetest.env:add_entity(pointed_thing.above, "ufos:ship")
-	ship = minetest.add_entity(pointed_thing.above, "ufos:ship")
+	local ship = minetest.add_entity(pointed_thing.above, "ufos:ship")
 	if ship then
 		ship:setyaw(placer:get_look_yaw() - math.pi / 2)
 
@@ -604,13 +629,34 @@ modUFO.ufo_from_item = function(itemstack, placer, pointed_thing)
 		if old_data then
 			meta:from_table({ fields = old_data })
 		end
-		local data = meta:to_table().fields
-		if data then
-			ship:get_luaentity().shipname = data.shipname
-			ship:get_luaentity().waypoint_actived = data.waypoint_actived
-			ship:get_luaentity().inertia_cancel = data.inertia_cancel
-		end
-	end
+		local tmpDatabase = meta:to_table().fields
+		if tmpDatabase then
+			ship:get_luaentity().shipname = tmpDatabase.shipname
+			ship:get_luaentity().waypoint_actived = tmpDatabase.waypoint_actived
+			ship:get_luaentity().inertia_cancel = tmpDatabase.inertia_cancel
+
+			ship:get_luaentity().forge.inventory = modUFO.getForgeInventory(ship:get_luaentity(), placer:get_player_name())
+			ship:get_luaentity().forge.inventory:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
+			ship:get_luaentity().forge.inventory:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)
+
+			if tmpDatabase.forgeListSrc then
+				local ListSrc = tmpDatabase.forgeListSrc:split(";")
+				for i=1, #ListSrc do
+					if ListSrc[i]~="" then
+						ship:get_luaentity().forge.inventory:set_stack("src", i, ItemStack(ListSrc[i]))
+					end
+				end 
+			end
+			if tmpDatabase.forgeListDst then
+				local ListDst = tmpDatabase.forgeListDst:split(";")
+				for i=1, #ListDst do
+					if ListDst[i]~="" then
+						ship:get_luaentity().forge.inventory:set_stack("dst", i, ItemStack(ListDst[i]))
+					end
+				end 
+			end
+		end --if tmpDatabase then
+	end --if ship then
 	-- remove the item
 	itemstack:take_item()
 	
