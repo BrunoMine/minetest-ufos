@@ -18,13 +18,13 @@ x 2 x	← 1 = Steel Block*
 1 x 1	← 2 = Gauge*
 1 1 1
 
-Pipe:
+Steel Pipe:
 1 x 1	← 1 = Steel Ingot*
 1 x 1
 1 x 1
 
 Pump:
-3 1 3	← 1 = Pipe
+3 1 3	← 1 = Steel Pipe
 2 1 2	← 2 = Copper Coil
 3 1 3	← 1 = Steel Block*
 
