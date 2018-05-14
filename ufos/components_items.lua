@@ -45,6 +45,21 @@ minetest.register_craftitem("ufos:copper_coil", {
 })
 
 minetest.register_craftitem("ufos:pump", {
-	description = modUFO.translate("Steel Pump"),
-	inventory_image = "obj_steel_pump.png",
+	description = modUFO.translate("Pump"),
+	inventory_image = "obj_pump.png",
+})
+
+minetest.register_craftitem("ufos:bioresin", {
+	description = modUFO.translate("Bioresin"),
+	inventory_image = "obj_bioresin.png",
+})
+
+minetest.register_craftitem("ufos:bioplastic_mass", {
+	description = modUFO.translate("Bioplastic Mass"),
+	inventory_image = "obj_bioplastic_mass.png",
+})
+
+minetest.register_craftitem("ufos:bioplastic_ingot", {
+	description = modUFO.translate("Bioplastic Ingot"),
+	inventory_image = "obj_bioplastic_ingot.png",
 })
