@@ -1,4 +1,4 @@
-UFO = Frame + Power Cell + Computer + 4:Light + 4:Oxigen System + 4:Speaker
+UFO = Frame + Power Cell + Light + Oxigen System + Speaker
 
 Steel Wire:
 x x 1	← 1 = Steel Ingot
