@@ -53,6 +53,12 @@ minetest.register_craftitem("ufos:bioresin", {
 	inventory_image = "obj_bioresin_16.png",
 })
 
+minetest.register_craftitem("ufos:ionized_bioresin", {
+	description = modUFO.translate("Ionized Bioresin"),
+	inventory_image = "obj_ionized_bioresin_32.png",
+})
+
+
 minetest.register_craftitem("ufos:bioplastic_mass", {
 	description = modUFO.translate("Bioplastic Mass"),
 	inventory_image = "obj_bioplastic_mass_16.png",
@@ -99,15 +105,15 @@ minetest.register_craftitem("ufos:panel", {
 
 --[[
 
-Controls:
+Manche:
 1 x 1	← 1 = Bioplastic Ingot*
 2 2 2	← 2 = Steel Ingot*
 x 2 x
 --]]
 
-minetest.register_craftitem("ufos:controls", {
-	description = modUFO.translate("Controls"),
-	inventory_image = "obj_controls_96.png",
+minetest.register_craftitem("ufos:pilot_manche", {
+	description = modUFO.translate("Pilot Manche"),
+	inventory_image = "obj_pilot_manche_96.png",
 })
 
 

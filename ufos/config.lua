@@ -1,5 +1,5 @@
 modUFO = {
-	fuel_type = "default:mese_crystal_fragment",
+	fuel_type = "ufos:ionized_bioresin",
 	ship_acceleration = 0.8,
 	ship_brake = 0.5,
 	ship_turn_speed = 1.5, --2.0

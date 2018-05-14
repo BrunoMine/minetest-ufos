@@ -3,10 +3,10 @@ minetest.register_node("ufos:furnace", {
 	tiles = {
 		"default_obsidian.png^default_mese_crystal.png^gui_hotbar_selected.png", --top
 		"default_obsidian.png^default_mese_crystal.png^gui_hotbar_selected.png", --down
-		"default_obsidian.png^gui_hotbar_selected.png^reloader_yellow_face.png", --right
-		"default_obsidian.png^gui_hotbar_selected.png^reloader_yellow_face.png", --left
-		"default_obsidian.png^gui_hotbar_selected.png^reloader_yellow_face.png", --end
-		"default_steel_block.png^reloader_front.png^gui_hotbar_selected.png"-- front
+		"default_obsidian.png^gui_hotbar_selected.png^obj_ionized_bioresin_32.png", --right
+		"default_obsidian.png^gui_hotbar_selected.png^obj_ionized_bioresin_32.png", --left
+		"default_obsidian.png^gui_hotbar_selected.png^obj_ionized_bioresin_32.png", --end
+		"default_obsidian.png^gui_hotbar_selected.png^[resize:96x96^obj_panel_96.png"-- front
 	},
 	paramtype2 = "facedir",
 	paramtype = "light",

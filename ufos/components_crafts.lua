@@ -88,20 +88,28 @@ minetest.register_craft({
 	}
 })
 
--- craft ufos:bioresin
+-- Dig 'ufos:bioresin' in 'default:pine_tree'
 local drops = {}
 table.insert(drops, {items = {'default:pine_tree'}})
-table.insert(drops, {items = {'ufos:bioresin'},rarity = 5}) -- rarity:5 = 1/5 = 20%
-minetest.override_item("default:pine_tree", {drop = {max_items=2, items=drops}}) --2 items per dig
+table.insert(drops, {items = {'ufos:bioresin'},rarity = 8}) -- rarity:8 = 1/8 = 12,5%
+minetest.override_item("default:pine_tree", {drop = {max_items=#drops, items=drops}}) --2 items per dig
+
 
 
 minetest.register_craft({
-	output = "ufos:bioplastic_mass",
+	output = "ufos:ionized_bioresin 9",
 	recipe = {
-		{"ufos:bioresin",		"ufos:bioresin", 			"ufos:bioresin"},
-		{"ufos:bioresin", 	"default:coal_lump", 	"ufos:bioresin"},
-		{"ufos:bioresin", 	"ufos:bioresin",			"ufos:bioresin"}
+		{"ufos:bioresin",		"ufos:bioresin", 							"ufos:bioresin"},
+		{"ufos:bioresin", 	"default:mese_crystal_fragment", 	"ufos:bioresin"},
+		{"ufos:bioresin", 	"ufos:bioresin",							"ufos:bioresin"}
 	}
+})
+
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "ufos:bioplastic_mass",
+	recipe = {"ufos:bioresin",	"default:coal_lump"}
 })
 
 minetest.register_craft({

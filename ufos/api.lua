@@ -37,14 +37,17 @@ end
 
 modUFO.getItemImage = function (objFuel)
 	local props = minetest.registered_items[objFuel]
-	if props.inventory_image == nil then 
-		props.inventory_image = "" 
+	if props == nil or props.inventory_image == nil then 
+		return "" 
 	end
 	return props.inventory_image
 end
 
 modUFO.getItemName = function(objFuel)
 	local props = minetest.registered_items[objFuel]
+	if props == nil or props.description == nil then 
+		return "???????" 
+	end
 	return props.description
 end
 
@@ -398,7 +401,7 @@ modUFO.getFormSpecs = {
 			--]]
 			
 			altura = 3.0
-			image = "([inventorycube{default_furnace_top.png{default_furnace_front.png{default_furnace_side.png)"
+			image = "navegation2_64.png"
 			formspec=formspec.."image[0,"..altura..";"..dimensions..";"..image
 			if self.upgrades.navegation ~= "true" then
 				formspec=formspec.."^[brighten:0^[colorize:black:160"
