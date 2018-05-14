@@ -88,6 +88,22 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "ufos:bioplastic_mass",
+	recipe = {
+		{"ufos:bioresin",	"ufos:bioresin", 	"ufos:bioresin"},
+		{"ufos:bioresin", 	"default:coal_lump", 	"ufos:bioresin"},
+		{"ufos:bioresin", 	"ufos:bioresin",	"ufos:bioresin"}
+	}
+})
+
+minetest.register_craft({
+    type = "cooking",
+    output = "ufos:bioplastic_ingot",
+    recipe = "ufos:bioplastic_mass",
+    cooktime = 10,
+})
+
 --[[
 minetest.register_craft({
 	output = "ufos:xxxxxx",
