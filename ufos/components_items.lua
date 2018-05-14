@@ -63,3 +63,14 @@ minetest.register_craftitem("ufos:bioplastic_ingot", {
 	description = modUFO.translate("Bioplastic Ingot"),
 	inventory_image = "obj_bioplastic_ingot.png",
 })
+
+minetest.register_craftitem("ufos:printed_circuit", {
+	description = modUFO.translate("Printed Circuit"),
+	inventory_image = "obj_printed_circuit.png",
+})
+
+minetest.register_craftitem("ufos:oxigen_system", {
+	description = modUFO.translate("Oxigen System"),
+	inventory_image = "obj_oxigen_system.png",
+})
+
