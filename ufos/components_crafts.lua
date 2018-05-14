@@ -105,6 +105,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "ufos:speaker",
+	recipe = {
+		{"default:paper",		"", 			"default:paper"},
+		{"ufos:bioplastic_ingot", 	"default:paper", 	"ufos:bioplastic_ingot"},
+		{"ufos:bioplastic_ingot", 	"ufos:copper_coil",	"ufos:bioplastic_ingot"}
+	}
+})
+
+minetest.register_craft({
 	output = "ufos:printed_circuit",
 	recipe = {
 		{"default:copper_ingot",	"ufos:bioplastic_ingot", 	"default:copper_ingot"},
@@ -119,6 +128,16 @@ minetest.register_craft({
 	recipe = {"ufos:cylinder",	"ufos:pump", 	"ufos:printed_circuit"}
 
 })
+
+minetest.register_craft({
+	output = "ufos:button",
+	recipe = {
+		{"ufos:bioplastic_ingot",	"", 	""},
+		{"default:stick", 		"", 	""},
+		{"ufos:copper_wire", 		"",	""}
+	}
+})
+
 
 --[[
 minetest.register_craft({
