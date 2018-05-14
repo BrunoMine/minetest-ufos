@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PORTUGUESE 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-12 00:51-0300\n"
-"PO-Revision-Date: 2018-05-14 01:46-0300\n"
+"PO-Revision-Date: 2018-05-14 20:13-0300\n"
 "Last-Translator: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
 "Lunovox>\n"
 "Language-Team: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
@@ -198,7 +198,7 @@ msgid ""
 "(Spend fuel constantly if off)"
 msgstr ""
 "Ativar 'Anulador de Inércia'.\n"
-"(Gasta combustível constantemente se desligado)"
+"(Gasta carga constantemente se desligado)"
 
 #: api.lua:386
 msgid "OK"
@@ -215,7 +215,7 @@ msgstr "ATIVAR"
 #: api.lua:419
 #, lua-format
 msgid "Fuel: %s"
-msgstr "Carga: %s"
+msgstr "Combustível: %s"
 
 #: api.lua:421
 msgid "1º ← You need to park your UFO next to this!"
@@ -237,7 +237,8 @@ msgstr "Este OVNI não estava protegido.. Agora você é o novo dono!"
 #: api.lua:626
 #, lua-format
 msgid "Hold 'Run Key'(R or Ctrl) and Click to control the UFO owned by '%s'!"
-msgstr "Segure o botão 'CORRER' (R or Ctrl) e Clique para controlar OVNI de '%s'!"
+msgstr ""
+"Segure o botão 'CORRER' (R or Ctrl) e Clique para controlar OVNI de '%s'!"
 
 #: api.lua:633
 #, lua-format
@@ -272,8 +273,11 @@ msgstr "welcome_pt"
 
 #: ship.lua:114
 #, lua-format
-msgid "It is not possible to shrink this vehicle before the pilot '%s' comes out of it!"
-msgstr "Não é possível encolher este veículo ante do piloto '%s' sair deste OVNI!"
+msgid ""
+"It is not possible to shrink this vehicle before the pilot '%s' comes out of "
+"it!"
+msgstr ""
+"Não é possível encolher este veículo ante do piloto '%s' sair deste OVNI!"
 
 #: ship.lua:249
 msgid "Showing the location signal of your UFO!"
