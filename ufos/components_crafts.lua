@@ -104,6 +104,22 @@ minetest.register_craft({
     cooktime = 10,
 })
 
+minetest.register_craft({
+	output = "ufos:printed_circuit",
+	recipe = {
+		{"default:copper_ingot",	"ufos:bioplastic_ingot", 	"default:copper_ingot"},
+		{"ufos:bioplastic_ingot", 	"default:copper_ingot", 	"ufos:bioplastic_ingot"},
+		{"default:copper_ingot", 	"ufos:bioplastic_ingot",	"default:copper_ingot"}
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "ufos:oxigen_system",
+	recipe = {"ufos:cylinder",	"ufos:pump", 	"ufos:printed_circuit"}
+
+})
+
 --[[
 minetest.register_craft({
 	output = "ufos:xxxxxx",
