@@ -305,7 +305,7 @@ modUFO.getFormSpecs = {
 		local myFormSpec =
 		"size[8,5.80]"
 		..modUFO.getFomTheme()
-		.."label[0,0;"..minetest.formspec_escape(modUFO.translate("UFO SYSTEM CONTROL")..":").."]"
+		.."label[0,0;"..minetest.formspec_escape(core.get_color_escape_sequence("#00FF00")..modUFO.translate("UFO SYSTEM CONTROL")..":").."]"
 		.."button[0,0.50;4,1;btnControlHelp;"..minetest.formspec_escape(modUFO.translate("UFO MANUAL")).."]"
 		.."button[4,0.50;4,1;btnShowFiveTones;"..minetest.formspec_escape(modUFO.translate("FIVE TONES")).."]"
 		.."button[0,1.35;4,1;btnShowMailBox;"..minetest.formspec_escape(modUFO.translate("MAILBOX")).."]"
@@ -325,9 +325,107 @@ modUFO.getFormSpecs = {
 		
 		return myFormSpec
 	end,
+	upgrades = function(self, driver)
+		--http://dev.minetest.net/texture
+		local altura = 0
+		local image = ""
+		local color_on = "#FFFFFF"
+		local color_off = "#886666"
+		local formspec = "size[5,3.5]"
+			..modUFO.getFomTheme()
+			.."label[0,0;"..minetest.formspec_escape(core.get_color_escape_sequence("#00FF00")..modUFO.translate("UPGRADES")..":").."]"
+			
+			--altura = 5.00
+			--formspec=formspec.."list[current_player;main;0,"..altura.."; 8,1;]"
+			--formspec=formspec..default.get_hotbar_bg(0, altura)
+			--formspec=formspec.."list[current_player;main;0,"..(altura+1.25).."; 8,3;8]"
+			
+			dimensions="0.75,0.75"
+
+			if minetest.get_modpath("minertrade") then
+				altura = 0.75
+				formspec=formspec.."image[0,"..altura..";"..dimensions..";([inventorycube{safe_side.png{safe_front.png{safe_side.png)"
+				if self.upgrades.trunk ~= "true" then
+					formspec=formspec.."^[brighten:0^[colorize:black:160"
+				end
+				formspec=formspec.."]"
+				formspec=formspec.."label[0.75,"..(altura+0.15)..";"
+				if self.upgrades.trunk == "true" then
+					formspec=formspec..core.get_color_escape_sequence(color_on)
+				else
+					formspec=formspec..core.get_color_escape_sequence(color_off)
+				end
+				formspec=formspec..minetest.formspec_escape(modUFO.translate("CARRIER TRUNK")).."]"
+			end
+			if minetest.get_modpath("correio") then
+				altura = 1.5
+				formspec=formspec.."image[0,"..altura..";"..dimensions..";obj_mailbox.png"
+				if self.upgrades.mailbox ~= "true" then
+					formspec=formspec.."^[brighten:0^[colorize:black:160"
+				end
+				formspec=formspec.."]"
+				formspec=formspec.."label[0.75,"..(altura+0.15)..";"
+				if self.upgrades.mailbox == "true" then
+					formspec=formspec..core.get_color_escape_sequence(color_on)
+				else
+					formspec=formspec..core.get_color_escape_sequence(color_off)
+				end
+				formspec=formspec..minetest.formspec_escape(modUFO.translate("MAILBOX")).."]"
+			end
+
+			altura = 2.25
+			image = "([inventorycube{default_furnace_top.png{default_furnace_front.png{default_furnace_side.png)"
+			formspec=formspec.."image[0,"..altura..";"..dimensions..";"..image
+			if self.upgrades.forge ~= "true" then
+				formspec=formspec.."^[brighten:0^[colorize:black:160"
+			end
+			formspec=formspec.."]"
+			formspec=formspec.."label[0.75,"..(altura+0.15)..";"
+			if self.upgrades.forge == "true" then
+				formspec=formspec..core.get_color_escape_sequence(color_on)
+			else
+				formspec=formspec..core.get_color_escape_sequence(color_off)
+			end
+			formspec=formspec..minetest.formspec_escape(modUFO.translate("ELETRIC FORGE")).."]"
+
+			--[[
+			altura = 2.25
+			--formspec=formspec.."list[detached:frmUpgrades;forge;0,"..altura..";"..dimensions..";]"
+			formspec=formspec.."image[0,"..altura..";"..dimensions..";([inventorycube{default_furnace_top.png{default_furnace_front.png{default_furnace_side.png)]"
+			formspec=formspec.."label[0.75,"..(altura+0.15)..";"
+			..core.get_color_escape_sequence("#FFFFFF")
+			..minetest.formspec_escape(modUFO.translate("ELETRIC FORGE")).."]"
+			--]]
+			
+			altura = 3.0
+			image = "([inventorycube{default_furnace_top.png{default_furnace_front.png{default_furnace_side.png)"
+			formspec=formspec.."image[0,"..altura..";"..dimensions..";"..image
+			if self.upgrades.navegation ~= "true" then
+				formspec=formspec.."^[brighten:0^[colorize:black:160"
+			end
+			formspec=formspec.."]"
+			formspec=formspec.."label[0.75,"..(altura+0.15)..";"
+			if self.upgrades.navegation == "true" then
+				formspec=formspec..core.get_color_escape_sequence(color_on)
+			else
+				formspec=formspec..core.get_color_escape_sequence(color_off)
+			end
+			formspec=formspec..minetest.formspec_escape(modUFO.translate("NAVEGATION")).."]"
+
+			
+			--[[
+			altura = 3.0
+			--formspec=formspec.."list[detached:frmUpgrades;navegation;0,"..altura..";"..dimensions..";]"
+			formspec=formspec.."image[0,"..altura..";"..dimensions..";navegation2_64.png^[brighten:0^[colorize:black:160]"
+			formspec=formspec.."label[0.75,"..(altura+0.15)..";"
+			..core.get_color_escape_sequence("#666666")
+			..minetest.formspec_escape(modUFO.translate("NAVEGATION")).."]"
+			--]]
+		return formspec
+	end,
 	controlhelp = "size[8.5,6.50]"
 		..modUFO.getFomTheme()
-		.."label[0,0.00;"..minetest.formspec_escape(modUFO.translate("UFO MANUAL - CONTROLS")..":").."]"
+		.."label[0,0.00;"..minetest.formspec_escape(core.get_color_escape_sequence("#00FF00")..modUFO.translate("UFO MANUAL - CONTROLS")..":").."]"
 		.."label[0,0.75;"..minetest.formspec_escape(modUFO.translate("Key W (UP) ← Accelerator")).."]"
 		.."label[0,1.25;"..minetest.formspec_escape(modUFO.translate("Key S (DOWN) ← Brake")).."]"
 		.."label[0,1.75;"..minetest.formspec_escape(modUFO.translate("Key A (LEFT) ← Turn Lett")).."]"
@@ -343,7 +441,7 @@ modUFO.getFormSpecs = {
 		.."",
 	controlhelp2 = "size[8.5,6.50]"
 		..modUFO.getFomTheme()
-		.."label[0,0.00;"..minetest.formspec_escape(modUFO.translate("UFO MANUAL - MAINTENANCE")..":").."]"
+		.."label[0,0.00;"..minetest.formspec_escape(core.get_color_escape_sequence("#00FF00")..modUFO.translate("UFO MANUAL - MAINTENANCE")..":").."]"
 		.."label[0,0.75;"..minetest.formspec_escape(modUFO.translate(
 			"Do not forget your UFO in the garage. Your UFO can be deleted \nfrom the server when admin applies maintenance procedures on \nthe server. Save your UFO as an item."
 		)).."]"
@@ -356,7 +454,7 @@ modUFO.getFormSpecs = {
 		..modUFO.getFomTheme()
 		.."label[1.5,0;"..
 			minetest.formspec_escape(
-				"--== "..modUFO.translate("EMERGENCY EJECTION").." ==--"
+				core.get_color_escape_sequence("#00FF00").."--== "..modUFO.translate("EMERGENCY EJECTION").." ==--"
 			).."]"
 		.."label[0,1.0;"..minetest.formspec_escape(
 			modUFO.translate(
@@ -374,7 +472,7 @@ modUFO.getFormSpecs = {
 	settings = function(self)
 		local myFormSpec ="size[8,4.50]"
 		..modUFO.getFomTheme()
-		.."label[0,0;"..minetest.formspec_escape(modUFO.translate("UFO SETTINGS")..":").."]"
+		.."label[0,0;"..minetest.formspec_escape(core.get_color_escape_sequence("#00FF00")..modUFO.translate("UFO SETTINGS")..":").."]"
 		--field[X,Y;W,H;name;label;default]
 		.."field[0.25,1.5;7.75,1;txtShipName;"
 			..minetest.formspec_escape(modUFO.translate("Ship Name")..":")
@@ -386,7 +484,10 @@ modUFO.getFormSpecs = {
 			..self.waypoint_actived
 		.."]"
 		.."checkbox[0,2.75;chkInertiaCancel;"
-			..minetest.formspec_escape(modUFO.translate("Enable 'Inertia Cancel'.\n(Spend fuel constantly if off)"))..";"
+			..minetest.formspec_escape(
+				modUFO.translate("Enable 'Inertia Cancel'.").."\n"
+				.."( "..core.colorize("#FFFF00", modUFO.translate("Spend fuel constantly if off")).." )"
+			)..";"
 			..self.inertia_cancel
 		.."]"
 
@@ -397,7 +498,7 @@ modUFO.getFormSpecs = {
 	forge = function(self, driver, temperature_perc, item_percent)
 		local formspec = "size[8,9.0]"
 			..modUFO.getFomTheme()
-			.."label[0,0;"..minetest.formspec_escape(modUFO.translate("ELETRIC FORGE")..":").."]"
+			.."label[0,0;"..minetest.formspec_escape(core.get_color_escape_sequence("#00FF00")..modUFO.translate("ELETRIC FORGE")..":").."]"
 			.."list[detached:frmForge;src;0.75,1.0;"..modUFO.forge.sizeSrc.width..","..modUFO.forge.sizeSrc.height..";]"
 			.."image[2.75,2.0;1,1;default_furnace_fire_bg.png^[lowpart:"..(temperature_perc)..":default_furnace_fire_fg.png]"
 			.."image[3.75,2.0;1,1;gui_forge_arrow_bg.png^[lowpart:"..(item_percent)..":gui_forge_arrow_fg.png^[transformR270]"			
@@ -474,6 +575,17 @@ modUFO.on_player_receive_fields = function(self, sender, formname, fields)
 		elseif fields.btnShowForge then
 			self.forge.visibled = true
 			--modUFO.doButtonForge(self, sender)
+		elseif fields.btnShowUpgrade then
+			local newInv = minetest.create_detached_inventory_raw("frmUpgrades")
+			newInv:set_size("trunk", 1)
+			newInv:set_size("mailbox", 1)
+			newInv:set_size("forge", 1)
+			newInv:set_size("navegation", 1)
+			minetest.show_formspec(
+				sender:get_player_name(),
+				"frmUpgrades",
+				modUFO.getFormSpecs.upgrades(self, self.driver)
+			)
 		elseif fields.btnShowMailBox then
 			if self.driver then
 				if minetest.get_modpath("correio") and modCorreio~=nil then

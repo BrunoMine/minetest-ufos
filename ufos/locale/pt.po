@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PORTUGUESE 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-12 00:51-0300\n"
-"PO-Revision-Date: 2018-05-12 00:55-0300\n"
+"PO-Revision-Date: 2018-05-14 01:46-0300\n"
 "Last-Translator: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
 "Lunovox>\n"
 "Language-Team: Lunovox Heavenfinder <https://libreplanet.org/wiki/User:"
@@ -88,11 +88,11 @@ msgstr "FORJA ELÉTRICA"
 
 #: api.lua:310
 msgid "NAVEGATION"
-msgstr "--==NAVEGAÇÃO==--"
+msgstr "NAVEGAÇÃO"
 
 #: api.lua:311
 msgid "UPGRADES"
-msgstr "--==APRIMORAR==--"
+msgstr "APRIMORAMENTOS"
 
 #: api.lua:314 api.lua:352
 msgid "EMERGENCY EJECTION"
@@ -190,7 +190,7 @@ msgstr "Nome da Nave"
 
 #: api.lua:378
 msgid "Enable 'UFO tracer'."
-msgstr "Ativar 'Rastreador UFO'"
+msgstr "Ativar 'Rastreador OVNI'"
 
 #: api.lua:382
 msgid ""

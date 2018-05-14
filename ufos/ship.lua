@@ -4,6 +4,12 @@ modUFO.ufo = {
 	waypoint_position = nil;
 	waypoint_actived = "false",
 	inertia_cancel = "true",
+	upgrades={
+		trunk = "true",
+		mailbox = "true",
+		forge = "true",
+		navegation = "false",
+	},
 	forge = {
 		inventory = nil,
 		temperature = 0, --0 to 100%
