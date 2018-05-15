@@ -129,16 +129,7 @@ minetest.register_craftitem("ufos:upholstered_chair", {
 	inventory_image = "obj_upholstered_chair_96.png",
 })
 
-
 --[[
-Cockpit:
-1 x 6	← 1 = Panel*
-5 2 3	← 2 = Controls*
-4 4 4	← 3 = Upholstered Chair*
-			← 4 = Steel Block*
-			← 5 = Computer
-			← 5 = Speaker
-
 Steel Ring:
 1 1 1	← 1 = Steel Block
 1 x 1
@@ -172,46 +163,47 @@ Microwave Resonance Chamber:
 
 minetest.register_craftitem("ufos:microwave_resonance_chamber", {
 	description = modUFO.translate("Microwave Resonance Chamber"),
-	inventory_image = "obj_microwave_resonance_chamber.png",
+	inventory_image = "obj_microwave_resonance_chamber_96.png",
 })
 
 --[[
 Emdrive:
- 2 1 1	 ← 1 = Steel Ingot*
- 3 1 x	 ← 2 = Steel Spiral*
+ 4 1 1	 ← 1 = Steel Ingot*
+ 3 1 x	 ← 2 = Power Cell*
  2 1 1	 ← 3 = Microwave Resonance Chamber*
 		 	 ← 4 = Printed Circuits*
 --]]
 
 minetest.register_craftitem("ufos:emdrive", {
 	description = modUFO.translate("Emdrive"),
-	inventory_image = "obj_emdrive.png",
+	inventory_image = "obj_emdrive_96.png",
 })
 
 --[[
-Frame: 
- x 2 x	← 1 = Steel Block*
- 2 3 2	← 2 = Glass*
- 1 4 1	← 3 = Cockpit*
-			← 4 = EmDrive
+Cockpit:
+1 x 6	← 1 = Panel*
+5 2 3	← 2 = Pilot Manches*
+4 4 4	← 3 = Upholstered Chair*
+			← 4 = Steel Block*
+			← 5 = Computer
+			← 6 = Speaker
 --]]
-
-minetest.register_craftitem("ufos:frame", {
-	description = modUFO.translate("UFO Frame"),
-	inventory_image = "obj_frame.png",
+minetest.register_craftitem("ufos:cockpit", {
+	description = modUFO.translate("Cockpit"),
+	inventory_image = "obj_cockpit_128.png",
 })
 
 
 --[[
 Microprocessor:
- 1 2 1	← 1 = Lingote de Ouro*
- 1 3 1	← 2 = Bioplastic Ingot *
- 1 2 1	← 3 = Cristal de Diamante*
+ 2 1 2	← 1 = Lingote de Ouro*
+ 2 3 2	← 2 = Bioplastic Ingot *
+ 2 1 2	← 3 = Cristal de Diamante*
 --]]
 
-minetest.register_craftitem("ufos:frame", {
-	description = modUFO.translate("UFO Frame"),
-	inventory_image = "obj_frame.png",
+minetest.register_craftitem("ufos:microprocessor", {
+	description = modUFO.translate("Microprocessor"),
+	inventory_image = "obj_microprocessor_96.png",
 })
 
 --[[
@@ -241,23 +233,21 @@ minetest.register_craftitem("ufos:batery", {
 
 --[[
 Resistor:
-4 1 2	← 1 = Paper*
+x 1 2	← 1 = Bioplastic Ingot*
 1 3 1	← 2 = Copper Wire*
-2 1 4	← 3 = Coal*
-		 	← 4 = Bioplastic Ingot*
+2 1 x	← 3 = Coal*
 --]]
 
 minetest.register_craftitem("ufos:resistor", {
 	description = modUFO.translate("Resistor"),
-	inventory_image = "obj_resistor.png",
+	inventory_image = "obj_resistor_96.png",
 })
 
 --[[
 Capacitor:
-4 1 2	← 1 = Paper*
-1 3 1	← 2 = Steel Wire*
-2 2 4	← 3 = Paper*
-		 	← 4 = Bioplastic Ingot*
+3 1 3	← 1 = Paper*
+3 1 3	← 2 = Steel Wire*
+2 x 2	← 3 = Bioplastic Ingot**
 --]]
 
 minetest.register_craftitem("ufos:capacitor", {
@@ -267,49 +257,34 @@ minetest.register_craftitem("ufos:capacitor", {
 
 --[[
 RAM Memory:
-1 1 1	← 1 = Printed Circuits
-2 2 2	← 2 = Microprocessor
-3 3 3	← 3 = Copper Ingote
+3 3 3	← 1 = Microprocessor
+1 1 1	← 2 = Printed Circuits
+2 2 2	← 3 = button
 --]]
 
 minetest.register_craftitem("ufos:ram_memory", {
 	description = modUFO.translate("RAM Memory"),
-	inventory_image = "obj_ram_memory.png",
+	inventory_image = "obj_ram_memory_96.png",
 })
 
---[[
-Empty Syringe:
-x 1 2	← 1 = Glass*
-1 x 1	← 2 = Stick*
-3 1 x	← 3 = Steel Ingot
---]]
-
-minetest.register_craftitem("ufos:empty_syringe", {
-	description = modUFO.translate("Empty Syringe"),
-	inventory_image = "obj_empty_syringe.png",
+minetest.register_craftitem("ufos:gold_wire", {
+	description = modUFO.translate("Gold Wire"),
+	inventory_image = "obj_gold_wire_64.png",
 })
 
---[[
-Syringe with Blood: 
- * Use 'Empty Syringe' to take HP-1 of you self to transform this in Syringe with Blood
---]]
-
-minetest.register_craftitem("ufos:syringe_with_blood", {
-	description = modUFO.translate("Syringe with Blood"),
-	inventory_image = "obj_syringe_with_blood.png",
-})
 
 --[[
-Brain Interface:
- x 1 x	← 1 = Syringe with Blood*
- 2 3 2	← 2 = Copper Wire*
+DNA Checker:
+ 5 1 5	← 1 = Toroidal Copper Coil*
+ 2 3 2	← 2 = Gold Wire*
  4 4 4	← 3 = Microprocessor*
 		 	← 4 = Printed Circuit*
+		 	← 5 = Obsidian Glass*
 --]]
 
-minetest.register_craftitem("ufos:brain_interface", {
-	description = modUFO.translate("Brain Interface"),
-	inventory_image = "obj_brain_interface.png",
+minetest.register_craftitem("ufos:dna_checker", {
+	description = modUFO.translate("DNA Checker"),
+	inventory_image = "obj_dna_checker_96.png",
 })
 
 --[[
@@ -317,7 +292,7 @@ Computer:
  1 2 3	← 1 = Resistor*
  4 5 6	← 2 = Copper Wire*
  7 8 9	← 3 = Capacitor*
-		 	← 4 = Brain Interface*
+		 	← 4 = DNA Checker*
 		 	← 5 = Microprocessor*
 		 	← 6 = Gauge*
 		 	← 7 = Bonina Toroidal de Copper*
@@ -327,6 +302,6 @@ Computer:
 
 minetest.register_craftitem("ufos:computer", {
 	description = modUFO.translate("Computer"),
-	inventory_image = "obj_computer.png",
+	inventory_image = "obj_computer_128.png",
 })
 

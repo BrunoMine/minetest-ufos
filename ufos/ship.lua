@@ -403,6 +403,7 @@ minetest.register_tool("ufos:ship", {
 	end,
 })
 
+--[[
 minetest.register_craft( {
 	output = 'ufos:ship',
 	recipe = {
@@ -411,6 +412,7 @@ minetest.register_craft( {
 		{ "default:steelblock", "default:mese", "default:steelblock"},
 	},
 })
+--]]
 
 --[[
 -- ufos box kept for compatibility only
