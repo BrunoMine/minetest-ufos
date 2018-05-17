@@ -2,13 +2,19 @@ modUFO.ufo = {
 	shipname="",
 	waypoint_handler = nil,
 	waypoint_position = nil;
-	waypoint_actived = "false",
+	location_sign = "false",
 	inertia_cancel = "true",
+	enabled_ai = "true",
+	soundHandles = {
+		engine = nil,
+		speaker = nil,
+	},
 	upgrades={
 		trunk = "true",
 		mailbox = "true",
 		forge = "true",
 		navegation = "false",
+		artif_intel = "true",
 	},
 	forge = {
 		inventory = nil,
@@ -31,7 +37,6 @@ modUFO.ufo = {
 	v = 0,
 	fuel = 0,
 	fueli = 0, -- ← Fuel Image
-	soundHandle=nil,
 }
 
 function modUFO.ufo:on_rightclick (clicker)
@@ -65,13 +70,15 @@ function modUFO.ufo:on_rightclick (clicker)
 			if clicker:get_player_name() == self.owner_name then
 				modUFO.send_message(self, clicker:get_player_name(), 
 					modUFO.translate("Welcome to your ship, Captain %s!"):format(self.owner_name)
-				)
+				,modUFO.translate("welcome_en"))
+				--[[
 				minetest.sound_play(
 					modUFO.translate("welcome_en"), 
 					{object = self.object, gain = 2.0, max_hear_distance = 5}
 				)
+				--]]
 			end
-			self.soundHandle=minetest.sound_play(
+			self.soundHandles.engine=minetest.sound_play(
 				"sfx_ufo",
 				{object = self.object, gain = 2.0, max_hear_distance = 5, loop = true,}
 			)
@@ -89,7 +96,7 @@ function modUFO.ufo:on_activate (staticdata, dtime_s)
 			self.shipname = tmpDatabase.shipname or self.shipname
 			self.owner_name = tmpDatabase.ownername or ""
 			self.fuel = tonumber(tmpDatabase.fuel or 0)
-			self.waypoint_actived = tmpDatabase.waypoint_actived or self.waypoint_actived
+			self.location_sign = tmpDatabase.location_sign or self.location_sign
 			self.inertia_cancel = tmpDatabase.inertia_cancel or self.inertia_cancel
 
 			
@@ -135,8 +142,8 @@ function modUFO.ufo:on_punch (puncher, time_from_last_punch, tool_capabilities, 
 	if puncher and puncher:is_player() then
 		if modUFO.check_owner(self,puncher) then
 			if not self.driver then
-				if self.soundHandle~=nil then 
-					minetest.sound_stop(self.soundHandle) 
+				if self.soundHandles.engine~=nil then 
+					minetest.sound_stop(self.soundHandles.engine) 
 				end
 				puncher:get_inventory():add_item("main", modUFO.ufo_to_item(self, puncher:get_player_name()))
 				if self.waypoint_handler then
@@ -230,8 +237,8 @@ function modUFO.ufo:on_step (dtime)
 		
 		if ctrl.down and ctrl.aux1 then 
 			--S Key + 'Run Key'(R or Ctrl) = Sound effect of 'five tones' of film 'close encounters of the third kind'.
-			if self.soundHandle~=nil then minetest.sound_stop(self.soundHandle) end
-			self.soundHandle=minetest.sound_play(
+			if self.soundHandles.engine~=nil then minetest.sound_stop(self.soundHandles.engine) end
+			self.soundHandles.engine=minetest.sound_play(
 				"sfx_five_tones",
 				{object = self.object, gain = 2.0, max_hear_distance = 50}
 			)
@@ -239,8 +246,8 @@ function modUFO.ufo:on_step (dtime)
 		if ctrl.sneak and ctrl.aux1 then --emergency eject
 			self.driver:set_detach()
 			self.driver = nil
-			if self.soundHandle~=nil then 
-				minetest.sound_stop(self.soundHandle) 
+			if self.soundHandles.engine~=nil then 
+				minetest.sound_stop(self.soundHandles.engine) 
 			end
 		end
 		if ctrl.aux1 then --recharge fuel
@@ -278,7 +285,7 @@ function modUFO.ufo:on_step (dtime)
 		if self.owner_name~="" then
 			local owner = minetest.get_player_by_name(self.owner_name)
 			if owner and owner:is_player() then
-				if self.waypoint_actived=="true"	then
+				if self.location_sign=="true"	then
 					if self.waypoint_position ~= self.object:getpos() then
 						self.waypoint_position = self.object:getpos()
 						if self.waypoint_handler then
@@ -293,14 +300,14 @@ function modUFO.ufo:on_step (dtime)
 								number = "0x00FF00",  
 								world_pos = self.object:getpos()
 							})
-							modUFO.play_fail(owner)
+							--modUFO.play_fail(owner)
 							modUFO.send_message(self, self.owner_name, 
-								modUFO.translate("Showing the location signal of your UFO!")
+								modUFO.translate("Showing the location_signal of your UFO!")
 								.." "
 								..core.get_color_escape_sequence("#00FF00")
 								..minetest.pos_to_string(modUFO.floor_pos(self.object:getpos()))
 								..core.get_color_escape_sequence("#FFFFFF")
-							)
+							,"sfx_falha")
 						end
 					end
 				elseif self.waypoint_handler then
@@ -349,7 +356,7 @@ function modUFO.ufo:get_staticdata()
 		shipname = self.shipname,
 		ownername = self.owner_name,
 		fuel = self.fuel,
-		waypoint_actived = self.waypoint_actived,
+		location_sign = self.location_sign,
 		inertia_cancel = self.inertia_cancel,
 		forge={
 			listSrc = { },
@@ -371,7 +378,7 @@ function modUFO.ufo:get_staticdata()
 		tostring(self.owner_name)
 		..";"..tostring(self.fuel)
 		..";"..tostring(self.shipname)
-		..";"..tostring(self.waypoint_actived)
+		..";"..tostring(self.location_sign)
 		..";"..tostring(self.inertia_cancel)
 	--]]
 end

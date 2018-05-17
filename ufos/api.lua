@@ -16,22 +16,39 @@ end
 modUFO.play_fail = function(object)
 	minetest.sound_play(
 		"sfx_falha", 
-		{object = object, gain = 2.0, max_hear_distance = 5}
+		{object = object, gain = 0.3, max_hear_distance = 1}
 	)
 end
 
-modUFO.send_message = function(self, playername, message)
-	--core.colorize(color, message)
-	--core.get_background_escape_sequence("#00ff00")
-	--core.get_color_escape_sequence("#ff0000")
-	if self and self.shipname~="" then
-		message=core.get_background_escape_sequence("#FFFFFF")..
-		core.colorize("#00FF00", "["..self.shipname:upper().."]").." "..message
-	else
-		message=core.get_background_escape_sequence("#FFFFFF")..
-		core.colorize("#00FF00", "["..modUFO.translate("ufo"):upper().."]").." "..message
+modUFO.send_message = function(self, playername, message, sound)
+	if self.upgrades.artif_intel~="false" and self.enabled_ai=="true" then
+		--core.colorize(color, message)
+		--core.get_background_escape_sequence("#00ff00")
+		--core.get_color_escape_sequence("#ff0000")
+		if self and self.shipname~="" then
+			message=core.get_background_escape_sequence("#FFFFFF")..
+			core.colorize("#00FF00", "["..self.shipname:upper().."]").." "..message
+		else
+			message=core.get_background_escape_sequence("#FFFFFF")..
+			core.colorize("#00FF00", "["..modUFO.translate("ufo"):upper().."]").." "..message
+		end
+		minetest.chat_send_player(playername, message)
+		if sound and type(sound)=="string" and sound~="" then
+			local player = minetest.get_player_by_name(playername)
+			if player and player:is_player() then
+				if self.soundHandles.speaker~=nil then 
+					minetest.sound_stop(self.soundHandles.speaker)
+				end
+				self.soundHandles.speaker=minetest.sound_play(
+					sound, {
+						player = player, 
+						gain = 1.0, 
+						max_hear_distance = 1
+					}
+				)
+			end
+		end
 	end
-	minetest.chat_send_player(playername, message)
 end
 
 
@@ -60,8 +77,8 @@ end
 
 modUFO.doFiveTones = function(self, player)
 	--S Key + 'Run Key'(R or Ctrl) = Sound effect of 'five tones' of film 'close encounters of the third kind'.
-	if self.soundHandle~=nil then minetest.sound_stop(self.soundHandle) end
-	self.soundHandle = minetest.sound_play(
+	if self.soundHandles.engine~=nil then minetest.sound_stop(self.soundHandles.engine) end
+	self.soundHandles.engine = minetest.sound_play(
 		"sfx_five_tones",	{
 			object = player
 			,gain = 2.0
@@ -284,8 +301,8 @@ modUFO.doButtonLeave = function(self, driver)
 			else
 				driver:set_detach()
 				self.driver = nil
-				if self.soundHandle~=nil then 
-					minetest.sound_stop(self.soundHandle) 
+				if self.soundHandles.engine~=nil then 
+					minetest.sound_stop(self.soundHandles.engine) 
 				end
 			end
 		else
@@ -473,7 +490,7 @@ modUFO.getFormSpecs = {
 		.."button[4,2.5;2,1;btnEjectCancel;"..minetest.formspec_escape(modUFO.translate("NOT")).."]"
 		.."",
 	settings = function(self)
-		local myFormSpec ="size[8,4.50]"
+		local myFormSpec ="size[8,5.25]"
 		..modUFO.getFomTheme()
 		.."label[0,0;"..minetest.formspec_escape(core.get_color_escape_sequence("#00FF00")..modUFO.translate("UFO SETTINGS")..":").."]"
 		--field[X,Y;W,H;name;label;default]
@@ -482,19 +499,23 @@ modUFO.getFormSpecs = {
 			..";"..minetest.formspec_escape(self.shipname)
 		.."]"
 		--checkbox[X,Y;name;label;selected]
-		.."checkbox[0,2.0;chkTracer;"
-			..minetest.formspec_escape(modUFO.translate("Enable 'UFO tracer'."))..";"
-			..self.waypoint_actived
+		.."checkbox[0,2.0;chkLocationSign;"
+			..minetest.formspec_escape(modUFO.translate("Location Sign"))..";"
+			..self.location_sign
 		.."]"
 		.."checkbox[0,2.75;chkInertiaCancel;"
 			..minetest.formspec_escape(
-				modUFO.translate("Enable 'Inertia Cancel'.").."\n"
-				.."( "..core.colorize("#FFFF00", modUFO.translate("Spend fuel constantly if off")).." )"
+				modUFO.translate("Inertia Cancel.").." ( "..core.colorize("#FFFF00", modUFO.translate("Spend fuel constantly if off")).." )"
 			)..";"
 			..self.inertia_cancel
 		.."]"
+		
+		if self.upgrades.artif_intel~="false" then
+			myFormSpec = myFormSpec..
+			"checkbox[0,3.50;chkArtifIntel;"..minetest.formspec_escape(modUFO.translate("Artificial Inteligency"))..";"..self.enabled_ai.."]"
+		end
 
-		myFormSpec = myFormSpec.."button[3.0,3.75;2,1;btnSaveSettings;"..minetest.formspec_escape(modUFO.translate("OK")).."]"
+		myFormSpec = myFormSpec.."button[3.0,4.50;2,1;btnSaveSettings;"..minetest.formspec_escape(modUFO.translate("OK")).."]"
 		
 		return myFormSpec
 	end,
@@ -552,8 +573,8 @@ modUFO.on_player_receive_fields = function(self, sender, formname, fields)
 		elseif fields.btnEjectOk then
 			sender:set_detach()
 			self.driver = nil
-			if self.soundHandle~=nil then 
-				minetest.sound_stop(self.soundHandle) 
+			if self.soundHandles.engine~=nil then 
+				minetest.sound_stop(self.soundHandles.engine) 
 			end
 		elseif fields.btnEjectCancel then
 			minetest.show_formspec(
@@ -635,22 +656,35 @@ modUFO.on_player_receive_fields = function(self, sender, formname, fields)
 			self.shipname = fields.txtShipName or ""
 			self.waypoint_position = nil --this line exit to update the waypoint
 		end
-		if fields.chkTracer then
-			self.waypoint_actived = fields.chkTracer
+		if fields.chkLocationSign then
+			self.location_sign = fields.chkLocationSign
 		end
 		if fields.chkInertiaCancel then
 			self.inertia_cancel = fields.chkInertiaCancel
-			if self.inertia_cancel == "false" then
-				modUFO.play_fail(owner)
-				modUFO.send_message(self, self.driver:get_player_name(), 
-					modUFO.translate("Disabled 'Inertia Cancel' of this UFO!")
-				)
-			elseif self.inertia_cancel == "true" then
-				modUFO.play_fail(owner)
-				modUFO.send_message(self, self.driver:get_player_name(), 
-					modUFO.translate("Enabled 'Inertia Cancel' of this UFO!")
-				)			
+			if self.driver then
+				if self.inertia_cancel == "false" then
+					modUFO.send_message(self, self.driver:get_player_name(), 
+						modUFO.translate("Disabled 'Inertia Cancel' of this UFO!")
+					,"sfx_falha")
+				elseif self.inertia_cancel == "true" then
+					modUFO.send_message(self, self.driver:get_player_name(), 
+						modUFO.translate("Enabled 'Inertia Cancel' of this UFO!")
+					,"sfx_falha")			
+				end
 			end
+		end
+		if fields.chkArtifIntel then
+			if self.driver then
+				--if self.enabled_ai == "false" then --Not exit this line because without AI cant speaker.
+				if self.enabled_ai == "true" then
+					--modUFO.play_fail(owner)
+					modUFO.send_message(self, self.driver:get_player_name(), 
+						modUFO.translate("Disabled 'Artificial Inteligency' of this UFO!")
+					,"sfx_falha")
+				end
+			end
+			self.enabled_ai = fields.chkArtifIntel
+			--minetest.chat_send_all("self.enabled_ai="..self.enabled_ai)
 		end
 		if fields.btnSaveSettings	 then
 			minetest.show_formspec(
@@ -694,7 +728,7 @@ modUFO.ufo_to_item = function(self, takername)
 	
 	local tmpDatabase = { --Unfortunately can only variables string and number.
 		shipname = self.shipname,
-		waypoint_actived = self.waypoint_actived,
+		location_sign = self.location_sign,
 		inertia_cancel = self.inertia_cancel,
 		forgeListSrc = "",
 		forgeListDst = "",
@@ -747,7 +781,7 @@ modUFO.ufo_from_item = function(itemstack, placer, pointed_thing)
 		local tmpDatabase = meta:to_table().fields
 		if tmpDatabase then
 			ship:get_luaentity().shipname = tmpDatabase.shipname
-			ship:get_luaentity().waypoint_actived = tmpDatabase.waypoint_actived
+			ship:get_luaentity().location_sign = tmpDatabase.location_sign
 			ship:get_luaentity().inertia_cancel = tmpDatabase.inertia_cancel
 
 			ship:get_luaentity().forge.inventory = modUFO.getForgeInventory(ship:get_luaentity(), placer:get_player_name())
