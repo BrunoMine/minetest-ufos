@@ -261,15 +261,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Panel:
-1 1 1	← 1 = Gauge*
-2 2 2	← 2 = Button*
-3 4 3	← 3 = Bioplastic Ingot*
-			← 4 = Computer*
-
---]]
-
 minetest.register_craftitem("ufos:panel", {
 	description = modUFO.translate("Panel"),
 	inventory_image = "obj_panel_96.png",
@@ -284,14 +275,6 @@ minetest.register_craft({
 })
 
 --########################################################################################################################
-
---[[
-
-Manche:
-1 x 1	← 1 = Bioplastic Ingot*
-2 2 2	← 2 = Steel Ingot*
-x 2 x
---]]
 
 minetest.register_craftitem("ufos:pilot_manche", {
 	description = modUFO.translate("Pilot Manche"),
@@ -310,13 +293,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Upholstered Chair:
-x x 1	← 1 = Wool Group*
-x x 1	← 2 = Steel Ingot*
-x 1 2
---]]
-
 minetest.register_craftitem("ufos:upholstered_chair", {
 	description = modUFO.translate("Upholstered Chair"),
 	inventory_image = "obj_upholstered_chair_96.png",
@@ -332,13 +308,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Steel Ring:
-1 1 1	← 1 = Steel Block
-1 x 1
-1 1 1
---]]
-
 minetest.register_craftitem("ufos:steel_ring", {
 	description = modUFO.translate("Steel Ring"),
 	inventory_image = "obj_steel_ring_32.png",
@@ -353,13 +322,6 @@ minetest.register_craft({
 })
 
 --########################################################################################################################
-
---[[
-Toroidal Copper Coil:
-1 1 1	← 1 = Copper Wire
-1 2 1	← 2 = Steel Ring
-1 1 1
---]]
 
 minetest.register_craftitem("ufos:copper_coil_toroidal", {
 	description = modUFO.translate("Toroidal Copper Coil"),
@@ -399,14 +361,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Emdrive:
- 4 1 1	 ← 1 = Steel Ingot*
- 3 1 x	 ← 2 = Power Cell*
- 2 1 1	 ← 3 = Microwave Resonance Chamber*
-		 	 ← 4 = Printed Circuits*
---]]
-
 minetest.register_craftitem("ufos:emdrive", {
 	description = modUFO.translate("Emdrive"),
 	inventory_image = "obj_emdrive_96.png",
@@ -422,15 +376,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Cockpit:
-1 x 6	← 1 = Panel*
-5 2 3	← 2 = Pilot Manches*
-4 4 4	← 3 = Upholstered Chair*
-			← 4 = Steel Block*
-			← 5 = Computer
-			← 6 = Speaker
---]]
 minetest.register_craftitem("ufos:cockpit", {
 	description = modUFO.translate("Cockpit"),
 	inventory_image = "obj_cockpit_128.png",
@@ -447,13 +392,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Microprocessor:
- 2 1 2	← 1 = Lingote de Ouro*
- 2 3 2	← 2 = Bioplastic Ingot *
- 2 1 2	← 3 = Cristal de Diamante*
---]]
-
 minetest.register_craftitem("ufos:microprocessor", {
 	description = modUFO.translate("Microprocessor"),
 	inventory_image = "obj_microprocessor_96.png",
@@ -468,13 +406,6 @@ minetest.register_craft({
 })
 
 --########################################################################################################################
-
---[[
-Power Cell:
- 1 1 1	← 1 = Steel Block*
- 2 2 2	← 2 = Pilhas/Batery (type D)*
- 3 3 3	← 3 = Diamond Block*
---]]
 
 minetest.register_craftitem("ufos:power_cell", {
 	description = modUFO.translate("Power Cell"),
@@ -491,14 +422,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Pilhas/Batery (Type D):
- 1 2 1	← 1 = Glass*
- 1 3 1	← 2 = Tin Block*
- 1 4 1	← 3 = Bioresin*
-		 	← 4 = Cooper Block*
---]]
-
 minetest.register_craftitem("ufos:batery", {
 	description = modUFO.translate("Batery (Type D"),
 	inventory_image = "obj_batery_96.png",
@@ -513,13 +436,6 @@ minetest.register_craft({
 })
 
 --########################################################################################################################
-
---[[
-Resistor:
-x 1 2	← 1 = Bioplastic Ingot*
-1 3 1	← 2 = Copper Wire*
-2 1 x	← 3 = Coal*
---]]
 
 minetest.register_craftitem("ufos:resistor", {
 	description = modUFO.translate("Resistor"),
@@ -536,13 +452,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Capacitor:
-3 1 3	← 1 = Paper*
-3 1 3	← 2 = Steel Wire*
-2 x 2	← 3 = Bioplastic Ingot**
---]]
-
 minetest.register_craftitem("ufos:capacitor", {
 	description = modUFO.translate("Capacitor"),
 	inventory_image = "obj_capacitor_96.png",
@@ -557,13 +466,6 @@ minetest.register_craft({
 })
 
 --########################################################################################################################
-
---[[
-RAM Memory:
-3 3 3	← 1 = Microprocessor
-1 1 1	← 2 = Printed Circuits
-2 2 2	← 3 = button
---]]
 
 minetest.register_craftitem("ufos:ram_memory", {
 	description = modUFO.translate("RAM Memory"),
@@ -597,15 +499,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-DNA Checker:
- 5 1 5	← 1 = Toroidal Copper Coil*
- 2 3 2	← 2 = Gold Wire*
- 4 4 4	← 3 = Microprocessor*
-		 	← 4 = Printed Circuit*
-		 	← 5 = Obsidian Glass*
---]]
-
 minetest.register_craftitem("ufos:dna_checker", {
 	description = modUFO.translate("DNA Checker"),
 	inventory_image = "obj_dna_checker_96.png",
@@ -620,19 +513,6 @@ minetest.register_craft({
 })
 
 --########################################################################################################################
-
---[[
-Computer:
- 1 2 3	← 1 = Resistor*
- 4 5 6	← 2 = Copper Wire*
- 7 8 9	← 3 = Capacitor*
-		 	← 4 = DNA Checker*
-		 	← 5 = Microprocessor*
-		 	← 6 = Gauge*
-		 	← 7 = Bonina Toroidal de Copper*
-		 	← 8 = Printed Circuit*
-		 	← 9 = RAM Memory*
---]]
 
 minetest.register_craftitem("ufos:computer", {
 	description = modUFO.translate("Computer"),
@@ -649,14 +529,6 @@ minetest.register_craft({
 
 --########################################################################################################################
 
---[[
-Ship: 
- x 2 x	← 1 = Oxigen System*
- 2 3 2	← 2 = Glass*
- 5 4 1	← 3 = Cockpit*
-			← 4 = EmDrive*
-			← 5 = Lamp*
---]]
 minetest.register_craft( {
 	output = 'ufos:ship',
 	recipe = {
