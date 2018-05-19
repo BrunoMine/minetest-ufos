@@ -765,6 +765,11 @@ modUFO.ufo_to_item = function(self, takername)
 	end
 	--modUFO.send_message(self, takername, "tmpDatabase="..dump(tmpDatabase))
 	itemstack:get_meta():from_table({fields = tmpDatabase})
+	
+	minetest.register_on_player_receive_fields(function(sender, formname, fields)
+		--self:on_player_receive_fields(sender, formname, fields)
+		modUFO.on_player_receive_fields(self, sender, formname, fields)
+	end)
 	return itemstack
 end
 

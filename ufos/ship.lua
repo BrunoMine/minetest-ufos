@@ -68,10 +68,12 @@ function modUFO.ufo:on_rightclick (clicker)
 		local ctrl = self.driver:get_player_control()
 		--]]
 		
+		--[[
 		minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			--self:on_player_receive_fields(sender, formname, fields)
 			modUFO.on_player_receive_fields(self, sender, formname, fields)
 		end)
+		--]]
 
 		minetest.show_formspec(
 			clicker:get_player_name(),
@@ -107,7 +109,7 @@ function modUFO.ufo:on_activate (staticdata, dtime_s)
 		modUFO.next_owner = ""
 	else
 		local tmpDatabase = minetest.deserialize(staticdata)
-		minetest.chat_send_all("chat_send_all: tmpDatabase="..dump(tmpDatabase))
+		--minetest.chat_send_all("chat_send_all: tmpDatabase="..dump(tmpDatabase))
 		if tmpDatabase then
 			self.shipname = tmpDatabase.shipname or modUFO.ufo.shipname
 			self.owner_name = tmpDatabase.ownername or ""
@@ -154,6 +156,10 @@ function modUFO.ufo:on_activate (staticdata, dtime_s)
 			self.waypoint_handler = nil
 		end
 	end
+	minetest.register_on_player_receive_fields(function(sender, formname, fields)
+		--self:on_player_receive_fields(sender, formname, fields)
+		modUFO.on_player_receive_fields(self, sender, formname, fields)
+	end)
 	self.object:set_armor_groups({immortal=1})	
 end
 
