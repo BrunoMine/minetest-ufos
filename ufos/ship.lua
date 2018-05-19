@@ -4,7 +4,7 @@ modUFO.ufo = {
 	waypoint_position = nil;
 	location_sign = "false",
 	inertia_cancel = "true",
-	enabled_ai = "true",
+	enabled_ai = "false",
 	soundHandles = {
 		engine = nil,
 		speaker = nil,
@@ -14,7 +14,7 @@ modUFO.ufo = {
 		mailbox = "true",
 		forge = "true",
 		navegation = "false",
-		artif_intel = "true",
+		artif_intel = "false",
 	},
 	forge = {
 		inventory = nil,
@@ -39,10 +39,24 @@ modUFO.ufo = {
 	fueli = 0, -- ← Fuel Image
 }
 
+
 function modUFO.ufo:on_rightclick (clicker)
 	if not clicker or not clicker:is_player() then
 		return
 	end
+	
+	if self.upgrades.artif_intel~="true" then
+		if clicker:get_wielded_item():get_name()=="ufos:artif_inteligency" then
+			self.upgrades.artif_intel="true"
+			self.enabled_ai="true"
+			clicker:get_inventory():remove_item("main", ItemStack("ufos:artif_inteligency 1"))
+			modUFO.send_message(self, clicker:get_player_name(), 
+				modUFO.translate("I am alive! Thank you, '%s'!"):format(clicker:get_player_name())
+			,"sfx_falha")
+			return
+		end
+	end
+	
 	
 	if self.driver and clicker == self.driver then
 		local floorPos = self.object:getpos()
@@ -55,6 +69,7 @@ function modUFO.ufo:on_rightclick (clicker)
 		--]]
 		
 		minetest.register_on_player_receive_fields(function(sender, formname, fields)
+			--self:on_player_receive_fields(sender, formname, fields)
 			modUFO.on_player_receive_fields(self, sender, formname, fields)
 		end)
 
@@ -92,38 +107,42 @@ function modUFO.ufo:on_activate (staticdata, dtime_s)
 		modUFO.next_owner = ""
 	else
 		local tmpDatabase = minetest.deserialize(staticdata)
+		minetest.chat_send_all("chat_send_all: tmpDatabase="..dump(tmpDatabase))
 		if tmpDatabase then
-			self.shipname = tmpDatabase.shipname or self.shipname
+			self.shipname = tmpDatabase.shipname or modUFO.ufo.shipname
 			self.owner_name = tmpDatabase.ownername or ""
 			self.fuel = tonumber(tmpDatabase.fuel or 0)
-			self.location_sign = tmpDatabase.location_sign or self.location_sign
-			self.inertia_cancel = tmpDatabase.inertia_cancel or self.inertia_cancel
-
+			self.location_sign = tmpDatabase.location_sign or modUFO.ufo.location_sign
+			self.inertia_cancel = tmpDatabase.inertia_cancel or modUFO.ufo.inertia_cancel
+			self.upgrades.artif_intel = tmpDatabase.upgrades_artif_intel or modUFO.ufo.upgrades.artif_intel
+			self.enabled_ai = tmpDatabase.enabled_ai or modUFO.ufo.enabled_ai
 			
-			self.forge.inventory = modUFO.getForgeInventory(self, self.owner_name)
-			self.forge.inventory:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
-			self.forge.inventory:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)
+			if self.owner_name~="" then
+				self.forge.inventory = modUFO.getForgeInventory(self, self.owner_name)
+				self.forge.inventory:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
+				self.forge.inventory:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)
 			
-			for i=1,self.forge.inventory:get_size("src") do
-				if 
-					tmpDatabase.forge 
-					and tmpDatabase.forge.listSrc 
-					and tmpDatabase.forge.listSrc[i] 
-				then
-					self.forge.inventory:set_stack("src", i, ItemStack(tmpDatabase.forge.listSrc[i]))
-				else
-					self.forge.inventory:set_stack("src", i, nil)
+				for i=1,self.forge.inventory:get_size("src") do
+					if 
+						tmpDatabase.forge 
+						and tmpDatabase.forge.listSrc 
+						and tmpDatabase.forge.listSrc[i] 
+					then
+						self.forge.inventory:set_stack("src", i, ItemStack(tmpDatabase.forge.listSrc[i]))
+					else
+						self.forge.inventory:set_stack("src", i, nil)
+					end
 				end
-			end
-			for i=1,self.forge.inventory:get_size("dst") do
-				if 
-					tmpDatabase.forge 
-					and tmpDatabase.forge.listDst 
-					and tmpDatabase.forge.listDst[i] 
-				then
-					self.forge.inventory:set_stack("dst", i, ItemStack(tmpDatabase.forge.listDst[i]))
-				else
-					self.forge.inventory:set_stack("dst", i, nil)
+				for i=1,self.forge.inventory:get_size("dst") do
+					if 
+						tmpDatabase.forge 
+						and tmpDatabase.forge.listDst 
+						and tmpDatabase.forge.listDst[i] 
+					then
+						self.forge.inventory:set_stack("dst", i, ItemStack(tmpDatabase.forge.listDst[i]))
+					else
+						self.forge.inventory:set_stack("dst", i, nil)
+					end
 				end
 			end
 		end
@@ -358,6 +377,8 @@ function modUFO.ufo:get_staticdata()
 		fuel = self.fuel,
 		location_sign = self.location_sign,
 		inertia_cancel = self.inertia_cancel,
+		upgrades_artif_intel = self.upgrades.artif_intel,
+		enabled_ai = self.enabled_ai,
 		forge={
 			listSrc = { },
 			listDst = { },

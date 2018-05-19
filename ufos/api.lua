@@ -51,6 +51,13 @@ modUFO.send_message = function(self, playername, message, sound)
 	end
 end
 
+modUFO.addDrops = function(drop_id, drop_rarity, to_node)
+	local newDrops = {}
+	local props = minetest.registered_items[to_node]
+	if props.drops then newDrops=props.drops end
+	table.insert(newDrops, {items = {drop_id},rarity = drop_rarity})
+	minetest.override_item(to_node, {drop = {max_items=#newDrops, items=newDrops}})
+end
 
 modUFO.getItemImage = function (objFuel)
 	local props = minetest.registered_items[objFuel]
@@ -558,7 +565,9 @@ modUFO.getFormSpecs = {
 	.."",
 }
 
+--function modUFO.ufo:on_player_receive_fields(sender, formname, fields)
 modUFO.on_player_receive_fields = function(self, sender, formname, fields)
+
 	local sendername = sender:get_player_name()
 	--modUFO.send_message(self, sendername, dump(sendername)..">>"..dump(formname)..">>"..dump(fields))
 	if formname == "frmUFO" then -- This is your form name
@@ -730,6 +739,8 @@ modUFO.ufo_to_item = function(self, takername)
 		shipname = self.shipname,
 		location_sign = self.location_sign,
 		inertia_cancel = self.inertia_cancel,
+		upgrades_artif_intel = self.upgrades.artif_intel,
+		enabled_ai = self.enabled_ai,
 		forgeListSrc = "",
 		forgeListDst = "",
 	}
@@ -782,8 +793,10 @@ modUFO.ufo_from_item = function(itemstack, placer, pointed_thing)
 		if tmpDatabase then
 			ship:get_luaentity().shipname = tmpDatabase.shipname
 			ship:get_luaentity().location_sign = tmpDatabase.location_sign
-			ship:get_luaentity().inertia_cancel = tmpDatabase.inertia_cancel
-
+			ship:get_luaentity().inertia_cancel = tmpDatabase.inertia_cancel			
+			ship:get_luaentity().upgrades.artif_intel = tmpDatabase.upgrades_artif_intel
+			ship:get_luaentity().enabled_ai = tmpDatabase.enabled_ai
+			
 			ship:get_luaentity().forge.inventory = modUFO.getForgeInventory(ship:get_luaentity(), placer:get_player_name())
 			ship:get_luaentity().forge.inventory:set_size("src", modUFO.forge.sizeSrc.width*modUFO.forge.sizeSrc.height)
 			ship:get_luaentity().forge.inventory:set_size("dst", modUFO.forge.sizeDst.width*modUFO.forge.sizeDst.height)

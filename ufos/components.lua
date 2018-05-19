@@ -151,11 +151,7 @@ minetest.register_craftitem("ufos:bioresin", {
 	inventory_image = "obj_bioresin_16.png",
 })
 -- Dig 'ufos:bioresin' in 'default:pine_tree'
-local drops = {}
-table.insert(drops, {items = {'default:pine_tree'}})
-table.insert(drops, {items = {'ufos:bioresin'},rarity = 5}) -- rarity:5 = 1/5 = 20%
-minetest.override_item("default:pine_tree", {drop = {max_items=#drops, items=drops}}) --2 items per dig
-
+modUFO.addDrops("ufos:bioresin", 5, 'default:pine_tree') -- rarity:5 = 1/5 = 20%
 
 --########################################################################################################################
 
@@ -437,12 +433,12 @@ minetest.register_craft({
 
 --########################################################################################################################
 
-minetest.register_craftitem("ufos:resistor", {
-	description = modUFO.translate("Resistor"),
+minetest.register_craftitem("ufos:resistance_electrical", {
+	description = modUFO.translate("Electrical Resistance"),
 	inventory_image = "obj_resistor_96.png",
 })
 minetest.register_craft({
-	output = "ufos:resistor",
+	output = "ufos:resistance_electrical",
 	recipe = {
 		{"",								"ufos:bioplastic_ingot", 	"ufos:copper_wire"},
 		{"ufos:bioplastic_ingot", 	"default:coalblock",			"ufos:bioplastic_ingot"},
@@ -521,9 +517,9 @@ minetest.register_craftitem("ufos:computer", {
 minetest.register_craft({
 	output = "ufos:computer",
 	recipe = {
-		{"ufos:resistor",			"ufos:copper_coil_toroidal",		"ufos:capacitor"},
-		{"ufos:dna_checker", 	"ufos:microprocessor", 				"ufos:switch_button"},
-		{"ufos:copper_wire",		"ufos:printed_circuit",				"ufos:ram_memory"}
+		{"ufos:resistance_electrical",	"ufos:copper_coil_toroidal",		"ufos:capacitor"},
+		{"ufos:dna_checker",				 	"ufos:microprocessor", 				"ufos:switch_button"},
+		{"ufos:copper_wire",					"ufos:printed_circuit",				"ufos:ram_memory"}
 	}
 })
 
@@ -537,3 +533,82 @@ minetest.register_craft( {
 		{ "ufos:eletric_lamp", 		"ufos:emdrive", 		"ufos:oxigen_system"},
 	},
 })
+--########################################################################################################################
+
+minetest.register_craftitem("ufos:quartzo_crystal_pink", {
+	description = modUFO.translate("Pink Quartzo Crystal"),
+	inventory_image = "obj_quartzo_crystal_pink_64.png",
+})
+-- Dig 'ufos:quartzo_crystal_pink' in 'default:gravel'
+modUFO.addDrops("ufos:quartzo_crystal_pink", 20, 'default:gravel') -- rarity:20 = 1/20 = 05%
+
+--########################################################################################################################
+
+minetest.register_craftitem("ufos:transistor", {
+	description = modUFO.translate("Transistor"),
+	inventory_image = "obj_transistor_96.png",
+})
+
+--[[
+ * Transistor:
+5 5 5	<- 1. Quartzo Crystal
+3 1 4	<- 2. Copper Wire
+2 x 2	<- 3. Capacitor
+		<- 4. Electrical Resistance
+		<- 5. Bioplastic Ingot
+--]]
+
+minetest.register_craft({
+	output = "ufos:transistor",
+	recipe = {
+		{"ufos:bioplastic_ingot",	"ufos:bioplastic_ingot",		"ufos:bioplastic_ingot"},
+		{"ufos:capacitor",			"ufos:quartzo_crystal_pink",	"ufos:resistance_electrical"},
+		{"ufos:steel_wire",			"ufos:steel_wire",				"ufos:steel_wire"}
+	}
+})
+
+--########################################################################################################################
+
+minetest.register_craftitem("ufos:artif_inteligency", {
+	description = core.colorize("#00FF00", 
+		modUFO.translate("Upgrade - Artificial Inteligency")
+	)
+	.."\n * "..modUFO.translate("Allows to your UFO talk to you."),
+	groups = {upgrades=1},
+	inventory_image = "obj_artif_inteligency_96.png",
+})
+
+--[[
+ * Upgrade - Artificial Inteligency: Allows to your UFO talk to you.
+ 1 2 1	<- 1. Toroidal Copper Coil
+ 3 4 5	<- 2. Horse Egg (If not exist mod "mobs_redo" do use a "Red Mushroom"
+ 6 7 8	<- 3. MicroProcessor
+			<- 4. Diamond
+			<- 5. Transistor
+			<- 6. Capacitor
+			<- 7. Bioplastic Ingot
+ 			<- 8. Electrical Resistance
+--]]
+
+
+minetest.register_craft({
+	output = "ufos:artif_inteligency",
+	recipe = {
+		{"ufos:copper_coil_toroidal",		"flowers:mushroom_red",		"ufos:copper_coil_toroidal"},
+		{"ufos:microprocessor",				"default:diamond",			"ufos:transistor"},
+		{"ufos:capacitor",					"ufos:bioplastic_ingot",	"ufos:resistance_electrical"}
+	}
+})
+--]]
+
+
+--[[
+minetest.register_craft({
+	output = "ufos:xxxxxxxxxx",
+	recipe = {
+		{"",	"",	""},
+		{"",	"",	""},
+		{"",	"",	""}
+	}
+})
+--]]
