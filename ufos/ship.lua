@@ -286,7 +286,7 @@ function modUFO.ufo:on_step (dtime)
 						fuel = fuel + 1
 						meta:set_int("charge",meta:get_int("charge")-1)
 						meta:set_string("formspec", 
-							modUFO.getFormSpecs.furnace
+							modUFO.getFormSpecs.furnace()
 							--.. "label[0,0;Charge: "..meta:get_int("charge"))
 							.. "label[1.95,0.6; "..modUFO.translate("Charge: %02d GWh (Gigawatts Hour)"):format(meta:get_int("charge")).. "]"
 						)

@@ -147,7 +147,10 @@ minetest.register_craft({
 --########################################################################################################################
 
 minetest.register_craftitem("ufos:bioresin", {
-	description = modUFO.translate("Bioresin"),
+	description = core.colorize("#00FF00", 
+		modUFO.translate("Bioresin")
+	)
+	.."\n * "..modUFO.translate("Extracted from pine wood."),
 	inventory_image = "obj_bioresin_16.png",
 })
 -- Dig 'ufos:bioresin' in 'default:pine_tree'
@@ -358,7 +361,12 @@ minetest.register_craft({
 --########################################################################################################################
 
 minetest.register_craftitem("ufos:emdrive", {
-	description = modUFO.translate("Emdrive"),
+	description = core.colorize("#00FF00", 
+		modUFO.translate("Emdrive")
+	)
+	.."\n * "..modUFO.translate(
+		"Engine for producing impulse from an electromagnetic field within a cavity, without the need to eject mass."
+	),
 	inventory_image = "obj_emdrive_96.png",
 })
 minetest.register_craft({
@@ -404,7 +412,7 @@ minetest.register_craft({
 --########################################################################################################################
 
 minetest.register_craftitem("ufos:power_cell", {
-	description = modUFO.translate("Power Cell"),
+	description = modUFO.translate("Power Cell (Type Omega)"),
 	inventory_image = "obj_power_cell_96.png",
 })
 minetest.register_craft({
@@ -419,7 +427,7 @@ minetest.register_craft({
 --########################################################################################################################
 
 minetest.register_craftitem("ufos:batery", {
-	description = modUFO.translate("Batery (Type D"),
+	description = modUFO.translate("Batery (Type D)"),
 	inventory_image = "obj_batery_96.png",
 })
 minetest.register_craft({
@@ -497,6 +505,12 @@ minetest.register_craft({
 
 minetest.register_craftitem("ufos:dna_checker", {
 	description = modUFO.translate("DNA Checker"),
+	description = core.colorize("#00FF00", 
+		modUFO.translate("DNA Checker")
+	)
+	.."\n * "..modUFO.translate(
+		"It allows an electronic device to check its owner."
+	),
 	inventory_image = "obj_dna_checker_96.png",
 })
 minetest.register_craft({
@@ -511,7 +525,12 @@ minetest.register_craft({
 --########################################################################################################################
 
 minetest.register_craftitem("ufos:computer", {
-	description = modUFO.translate("Computer"),
+	description = core.colorize("#00FF00", 
+		modUFO.translate("Computer")
+	)
+	.."\n * "..modUFO.translate(
+		"An embedded system is a microprocessor system in which the computer is completely encapsulated or dedicated to the device or system it controls."
+	),
 	inventory_image = "obj_computer_128.png",
 })
 minetest.register_craft({

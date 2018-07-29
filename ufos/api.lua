@@ -548,21 +548,23 @@ modUFO.getFormSpecs = {
 			.."listring[current_player;main]"
 		return formspec
 	end,
-	furnace = 
-		"size[8,6.5]"
-		..modUFO.getFomTheme()
-		.."list[current_name;fuel;0,0.25;1,1;]"
-		.."image[1.0,0.2;0.8,0.8;"..minetest.formspec_escape(modUFO.getItemImage(modUFO.fuel_type)).."]"
-		.."label[1.65,0.2;"..
-			minetest.formspec_escape(
-				"← "..modUFO.translate("Fuel: %s"):format(modUFO.getItemName(modUFO.fuel_type))
-			) .." ]"
-		.."label[0  ,1.4; "..minetest.formspec_escape(modUFO.translate("1º ← You need to park your UFO next to this!")).."]"
-		.."label[0  ,1.8; "..minetest.formspec_escape(modUFO.translate("2º ← Press 'run key'(Key E) in your UFO to reload!")).."]"
-		.."list[current_player;main;0,2.5;8,4;]"
-		.."listring[current_name;fuel]"
-		.."listring[current_player;main]"
-	.."",
+	furnace = function()
+		local formspec = "size[8,6.5]"
+			..modUFO.getFomTheme()
+			.."list[current_name;fuel;0,0.25;1,1;]"
+			.."image[1.0,0.2;0.8,0.8;"..minetest.formspec_escape(modUFO.getItemImage(modUFO.fuel_type)).."]"
+			.."label[1.65,0.2;"..
+				minetest.formspec_escape(
+					"← "..modUFO.translate("Fuel: %s"):format(modUFO.getItemName(modUFO.fuel_type))
+				) .." ]"
+			.."label[0  ,1.4; "..minetest.formspec_escape(modUFO.translate("1º ← You need to park your UFO next to this!")).."]"
+			.."label[0  ,1.8; "..minetest.formspec_escape(modUFO.translate("2º ← Press 'run key'(Key E) in your UFO to reload!")).."]"
+			.."list[current_player;main;0,2.5;8,4;]"
+			.."listring[current_name;fuel]"
+			.."listring[current_player;main]"
+		..""
+		return formspec
+	end,
 }
 
 --function modUFO.ufo:on_player_receive_fields(sender, formname, fields)

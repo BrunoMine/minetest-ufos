@@ -16,7 +16,7 @@ minetest.register_node("ufos:furnace", {
 	sounds = default.node_sound_stone_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.env:get_meta(pos)
-		meta:set_string("formspec", modUFO.getFormSpecs.furnace)
+		meta:set_string("formspec", modUFO.getFormSpecs.furnace())
 		meta:set_string("infotext", modUFO.translate("UFO charging device"))
 		local inv = meta:get_inventory()
 		inv:set_size("fuel", 1)
@@ -118,7 +118,7 @@ minetest.register_abm({
 			inv:remove_item("fuel",ItemStack(modUFO.fuel_type))
 			meta:set_int("charge",meta:get_int("charge")+1)
 			meta:set_string("formspec", 
-				modUFO.getFormSpecs.furnace
+				modUFO.getFormSpecs.furnace()
 				.. "label[1.95,0.6; "..modUFO.translate("Charge: %02d GWh (Gigawatts Hour)"):format(meta:get_int("charge")).. "]"
 			)
 		end
