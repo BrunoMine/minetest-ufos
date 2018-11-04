@@ -52,11 +52,35 @@ modUFO.send_message = function(self, playername, message, sound)
 end
 
 modUFO.addDrops = function(drop_id, drop_rarity, to_node)
-	local newDrops = {}
+	--FONTE: https://dev.minetest.net/minetest.register_node#More_on_drop
+	local newDropList = {}
 	local props = minetest.registered_items[to_node]
-	if props.drops then newDrops=props.drops end
-	table.insert(newDrops, {items = {drop_id},rarity = drop_rarity})
-	minetest.override_item(to_node, {drop = {max_items=#newDrops, items=newDrops}})
+	if props.drop then 
+		newDropList=props.drop.items 
+		table.insert(newDropList, {items = {drop_id},rarity = drop_rarity})
+		minetest.override_item(
+			to_node, {
+				drop = {
+					max_items=#newDropList,
+					items=newDropList
+				}
+			}
+		)
+	else
+		--[[ --]]
+		newDropList={
+			max_items=2, 
+			items={
+				{items = {drop_id},rarity = drop_rarity}
+			}
+		}
+		minetest.override_item(
+			to_node, {
+				drop = newDropList
+			}
+		)
+		--[[ --]]
+	end
 end
 
 modUFO.getItemImage = function (objFuel)

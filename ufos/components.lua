@@ -154,6 +154,7 @@ minetest.register_craftitem("ufos:bioresin", {
 	inventory_image = "obj_bioresin_16.png",
 })
 -- Dig 'ufos:bioresin' in 'default:pine_tree'
+modUFO.addDrops("default:pine_tree", 1, 'default:pine_tree') -- rarity:1 = 1/1 = 100%
 modUFO.addDrops("ufos:bioresin", 5, 'default:pine_tree') -- rarity:5 = 1/5 = 20%
 
 --########################################################################################################################
