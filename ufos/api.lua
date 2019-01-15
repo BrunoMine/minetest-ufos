@@ -884,4 +884,15 @@ end
 
 modUFO.next_owner = ""
 
-
+-- Node de UFO decorativo
+minetest.register_node("ufos:node_ufo", {
+	description = "Node UFO",
+	tiles = {"ufo.png"},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	sunlight_propagates = true,
+	drawtype = "mesh",
+	mesh = "ufo.x",
+	visual_scale = 1.45,
+	groups = {choppy = 2, oddly_breakable_by_hand = 2},
+})
